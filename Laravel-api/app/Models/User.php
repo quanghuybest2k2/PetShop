@@ -17,6 +17,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    /* $fillable cho phép thiết lập các cột trong một bảng có thể sử
+       dụng tính năng Mass Assignment, khi đó ta có thể thực hiện */
     protected $fillable = [
         'name',
         'email',
