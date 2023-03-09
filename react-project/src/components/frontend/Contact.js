@@ -1,4 +1,5 @@
 import React from 'react';
+import { MdLocationOn, MdEmail, MdPhone } from 'react-icons/md';
 import './css/style.css';
 function Contact() {
     return (
@@ -10,7 +11,9 @@ function Contact() {
 
                         <div className="section-title">
                             <h2>Liên hệ</h2>
-                            <p>Pet shop là công ty đa cấp chuyên dụ dỗ người dân lao động.</p>
+                            <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
+                                consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit
+                                in iste officiis commodi quidem hic quas.</p>
                         </div>
 
                         <div className="row">
@@ -18,19 +21,19 @@ function Contact() {
                             <div className="col-lg-5 d-flex align-items-stretch">
                                 <div className="info">
                                     <div className="address">
-                                        <i className="bi bi-geo-alt"></i>
+                                        <i className="bi bi-phone"><MdLocationOn /></i>
                                         <h4>Địa chỉ:</h4>
                                         <p>1 Phù Đổng Thiên Vương - P8 - TP.Đà Lạt</p>
                                     </div>
 
                                     <div className="email">
-                                        <i className="bi bi-envelope"></i>
+                                        <i className="bi bi-envelope"><MdEmail /></i>
                                         <h4>Email:</h4>
                                         <p>info@dlu.edu.vn</p>
                                     </div>
 
                                     <div className="phone">
-                                        <i className="bi bi-phone"></i>
+                                        <i className="bi bi-phone"><MdPhone /></i>
                                         <h4>Số điện thoại:</h4>
                                         <p>0263 3822 246</p>
                                     </div>
