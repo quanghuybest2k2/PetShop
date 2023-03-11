@@ -12,11 +12,17 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:191',
-            'email' => 'required|email|max:191|unique:users,email',
-            'password' => 'required|min:8',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|max:191',
+                'email' => 'required|email|max:191|unique:users,email',
+                'password' => 'required|min:8',
+            ],
+            [
+                'required'  => 'Bạn phải điền :attribute',
+            ]
+        );
         if ($validator->fails()) {
             return response()->json([
                 'validator_errors' => $validator->messages(),
@@ -38,10 +44,16 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|max:191',
-            'password' => 'required',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'email' => 'required|max:191',
+                'password' => 'required',
+            ],
+            [
+                'required'  => 'Bạn phải điền :attribute',
+            ]
+        );
         if ($validator->fails()) {
             return response()->json([
                 'validator_errors' => $validator->messages(),

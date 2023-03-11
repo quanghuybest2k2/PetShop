@@ -43,7 +43,7 @@ function Navbar() {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg shadow sticky-top">
+        <nav className="navbar navbar-expand-lg shadow sticky-top bg-light">
             <div className="container">
 
                 <Link className="navbar-brand text-capitalize" to="#">Cửu hàng thú cưng</Link>
@@ -61,13 +61,13 @@ function Navbar() {
                             <Link className="nav-link" to="/about">Giới thiệu</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Album</Link>
+                            <Link className="nav-link" to="/collections">Album</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">Liên hệ</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Giỏ hàng</Link>
+                            <Link className="nav-link" to="/cart">Giỏ hàng</Link>
                         </li>
                         {AuthButtons}
                     </ul>
