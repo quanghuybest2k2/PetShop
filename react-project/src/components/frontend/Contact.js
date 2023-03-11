@@ -11,9 +11,7 @@ function Contact() {
 
                         <div className="section-title">
                             <h2>Liên hệ</h2>
-                            <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                                consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit
-                                in iste officiis commodi quidem hic quas.</p>
+                            <p>Pet Shop là nhãn hiệu độc quyền của Công ty TNHH May Mặc Thăng Long đã được Cục sở hữu trí tuệ cấp Giấy chứng nhận nhãn hiệu hàng hóa. Pet Shop chuyên về dòng sản phẩm may mặc cho cả người lớn và trẻ em. Với ý tưởng sử dụng hình ảnh những thú cưng quen thuộc trong gia đình.</p>
                         </div>
 
                         <div className="row">
