@@ -1,9 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
+import swal from 'sweetalert';
 
 const Navbar = () => {
+    const history = useHistory();
+    const logoutSubmit = (e) => {
+        e.preventDefault();
 
+        axios.post(`/api/logout`).then(res => {
+            if (res.data.status === 200) {
+                localStorage.removeItem('auth_token');
+                localStorage.removeItem('auth_name');
+                swal("Success", res.data.message, "success");
+                history.push('/');
+            }
+        });
+
+    }
     return (
         <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <Link className="navbar-brand ps-3" to="/admin">Cửa hàng thú cưng</Link>
@@ -26,7 +40,9 @@ const Navbar = () => {
                         <li><Link className="dropdown-item" to="#!">Cài đặt</Link></li>
                         <li><Link className="dropdown-item" to="#!">Lịch sử</Link></li>
                         <li><hr className="dropdown-divider" /></li>
-                        <li><Link className="dropdown-item" to="#!">Đăng xuất</Link></li>
+                        <li>
+                            <button type="button" onClick={logoutSubmit} className="nav-link btn btn-danger btn-sm text-white">Đăng xuất</button>
+                        </li>
                     </ul>
                 </li>
             </ul>

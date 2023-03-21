@@ -11,6 +11,14 @@ const Sidebar = () => {
                         <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </Link>
+                    <Link className="nav-link" to="/admin/add-category">
+                        <div className="sb-nav-link-icon"><i class="bi bi-file-earmark-plus-fill"></i></div>
+                        Thêm danh mục
+                    </Link>
+                    <Link className="nav-link" to="/admin/view-category">
+                        <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
+                        Xem danh mục
+                    </Link>
                 </div>
             </div>
         </nav>

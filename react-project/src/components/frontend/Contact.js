@@ -1,5 +1,4 @@
 import React from 'react';
-import { MdLocationOn, MdEmail, MdPhone } from 'react-icons/md';
 import './css/style.css';
 function Contact() {
     return (
@@ -19,19 +18,19 @@ function Contact() {
                             <div className="col-lg-5 d-flex align-items-stretch">
                                 <div className="info">
                                     <div className="address">
-                                        <i className="bi bi-phone"><MdLocationOn /></i>
+                                        <i class="bi bi-signpost-2-fill"></i>
                                         <h4>Địa chỉ:</h4>
                                         <p>1 Phù Đổng Thiên Vương - P8 - TP.Đà Lạt</p>
                                     </div>
 
                                     <div className="email">
-                                        <i className="bi bi-envelope"><MdEmail /></i>
+                                        <i class="bi bi-envelope-fill"></i>
                                         <h4>Email:</h4>
                                         <p>info@dlu.edu.vn</p>
                                     </div>
 
                                     <div className="phone">
-                                        <i className="bi bi-phone"><MdPhone /></i>
+                                        <i class="bi bi-telephone-fill"></i>
                                         <h4>Số điện thoại:</h4>
                                         <p>0263 3822 246</p>
                                     </div>
