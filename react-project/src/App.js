@@ -8,7 +8,7 @@ import PublicRoute from './PublicRoute';
 
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = "http://localhost:8000/";// base_url
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json';
 
@@ -30,17 +30,6 @@ function App() {
           <AdminPrivateRoute path="/admin" name="Admin" />
 
           <PublicRoute path="/" name="Home" />
-
-          {/* <Route path="/login">
-              {localStorage.getItem('auth_token') ? <Redirect to='/' /> : <Login />}
-            </Route>
-            <Route path="/register">
-              {localStorage.getItem('auth_token') ? <Redirect to='/' /> : <Register />}
-            </Route> */}
-
-          {/* <Route path="/admin" name="Admin" render={(props) => <MasterLayout {...props} />} /> */}
-
-
         </Switch>
       </Router>
     </div>

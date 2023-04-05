@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
+import config from '../../../config';
 
 function ViewCategory() {
 
@@ -45,6 +46,7 @@ function ViewCategory() {
     }
 
     var viewcategory_HTMLTABLE = "";
+    var stt = 1;
     if (loading) {
         return <h4>Xin vui lòng chờ...</h4>
     }
@@ -53,10 +55,10 @@ function ViewCategory() {
             categorylist.map((item) => {
                 return (
                     <tr key={item.id}>
-                        <td>{item.id}</td>
+                        <td>{stt++}</td>
                         <td>{item.name}</td>
                         <td>{item.slug}</td>
-                        <td><img src={`http://localhost:8000/${item.image}`} width="50px" alt={item.name} /></td>
+                        <td><img src={`${config.BASE_URL}/${item.image}`} width="50px" alt={item.name} /></td>
                         <td>{item.status}</td>
                         <td>
                             <Link to={`edit-category/${item.id}`} className="btn btn-success btn-sm">sửa</Link>
@@ -81,7 +83,7 @@ function ViewCategory() {
                     <table className="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>STT</th>
                                 <th>Tên danh mục</th>
                                 <th>Slug</th>
                                 <th>Hình ảnh</th>

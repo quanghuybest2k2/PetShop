@@ -66,7 +66,7 @@ function Register() {
                             <span>{registerInput.error_list.email}</span>
                         </div>
                         <div className="form-floating mb-3">
-                            <input type="password" name="password" onChange={handleInput} value={registerInput.password} className="form-control" />
+                            <input type="text" name="password" onChange={handleInput} value={registerInput.password} className="form-control" />
                             <label>Mật khẩu</label>
                             <span>{registerInput.error_list.password}</span>
                         </div>
@@ -74,7 +74,7 @@ function Register() {
                             <button type="submit" className="btn btn-outline-primary btn-lg bg-primary-subtle">Đăng ký</button>
                         </div>
                     </form>
-                    <div className="form-floating mb-3">
+                    <div className="d-flex justify-content-between mt-5">
                         <p>Bạn đã có tài khoản rồi?</p>
                         <Link to="/login" className="link-hover float-end">Đăng nhập</Link>
                     </div>

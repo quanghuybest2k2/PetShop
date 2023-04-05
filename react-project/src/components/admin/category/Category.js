@@ -10,9 +10,6 @@ function Category() {
         name: '',
         descrip: '',
         status: '',
-        meta_title: '',
-        meta_keyword: '',
-        meta_descrip: '',
         error_list: [],
     });
     const [pricture, setPicture] = useState([]);
@@ -33,9 +30,6 @@ function Category() {
         data.append('name', categoryInput.name);
         data.append('description', categoryInput.descrip);
         data.append('status', categoryInput.status);
-        data.append('meta_title', categoryInput.meta_title);
-        data.append('meta_keyword', categoryInput.meta_keyword);
-        data.append('meta_descrip', categoryInput.meta_descrip);
         axios.post(`api/store-category`, data).then(res => {
             if (res.data.status === 200) {
                 e.target.reset();
@@ -46,9 +40,6 @@ function Category() {
                     name: '',
                     descrip: '',
                     status: '',
-                    meta_title: '',
-                    meta_keyword: '',
-                    meta_descrip: '',
                 });
             }
             else if (res.data.status === 400) {
@@ -64,7 +55,6 @@ function Category() {
         display_errors = [
             categoryInput.error_list.slug,
             categoryInput.error_list.name,
-            categoryInput.error_list.meta_title,
         ]
     }
 
@@ -91,23 +81,19 @@ function Category() {
                                 <button className="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Chung</button>
                             </li>
                             <li className="nav-item" role="presentation">
-                                <button className="nav-link" id="seo-tags-tab" data-bs-toggle="tab" data-bs-target="#seo-tags" type="button" role="tab" aria-controls="seo-tags" aria-selected="false">Thẻ SEO</button>
-                            </li>
-                            <li className="nav-item" role="presentation">
                                 <button className="nav-link" id="otherdetails-tab" data-bs-toggle="tab" data-bs-target="#otherdetails" type="button" role="tab" aria-controls="otherdetails" aria-selected="false">Thông tin khác</button>
                             </li>
                         </ul>
                         <div className="tab-content" id="myTabContent">
                             <div className="tab-pane card-body border fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-
+                                <div className="form-group mb-3">
+                                    <label>Tên danh mục</label>
+                                    <input type="text" name="name" onChange={handleInput} value={categoryInput.name} className="form-control" />
+                                </div>
                                 <div className="form-group mb-3">
                                     <label>Slug</label>
                                     <input type="text" name="slug" onChange={handleInput} value={categoryInput.slug} className="form-control" />
                                     <span>{categoryInput.error_list.slug}</span>
-                                </div>
-                                <div className="form-group mb-3">
-                                    <label>Tên danh mục</label>
-                                    <input type="text" name="name" onChange={handleInput} value={categoryInput.name} className="form-control" />
                                 </div>
                                 <div className="form-group mb-3">
                                     <label>Mô tả</label>
@@ -116,22 +102,6 @@ function Category() {
                                 <div className="form-group mb-3">
                                     <label>Trạng thái:</label><br />
                                     <input type="checkbox" name="status" onChange={handleInput} value={categoryInput.status} /> Status 0 = hiển thị / 1 = ẩn
-                                </div>
-
-                            </div>
-                            <div className="tab-pane card-body border fade" id="seo-tags" role="tabpanel" aria-labelledby="seo-tags-tab">
-
-                                <div className="form-group mb-3">
-                                    <label>Meta Title</label>
-                                    <input type="text" name="meta_title" onChange={handleInput} value={categoryInput.meta_title} className="form-control" />
-                                </div>
-                                <div className="form-group mb-3">
-                                    <label>Meta Keyword</label>
-                                    <textarea name="meta_keyword" onChange={handleInput} value={categoryInput.meta_keyword} className="form-control"></textarea>
-                                </div>
-                                <div className="form-group mb-3">
-                                    <label>Meta Description</label>
-                                    <textarea name="meta_descrip" onChange={handleInput} value={categoryInput.meta_descrip} className="form-control"></textarea>
                                 </div>
 
                             </div>
