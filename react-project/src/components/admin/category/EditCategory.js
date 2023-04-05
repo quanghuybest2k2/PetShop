@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
+import config from '../../../config';
 
 function EditCategory(props) {
     const history = useHistory();
     const [loading, setLoading] = useState(true);
     const [categoryInput, setCategory] = useState([]);
     const [error, setError] = useState([]);
-
+    const [pricture, setPicture] = useState([]);
     useEffect(() => {
 
         const category_id = props.match.params.id;
@@ -28,6 +29,9 @@ function EditCategory(props) {
     const handleInput = (e) => {
         e.persist();
         setCategory({ ...categoryInput, [e.target.name]: e.target.value });
+    }
+    const handleImage = (e) => {
+        setPicture({ image: e.target.files[0] });
     }
     const updateCategory = (e) => {
         e.preventDefault();
@@ -69,21 +73,20 @@ function EditCategory(props) {
                                 <button className="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Chung</button>
                             </li>
                             <li className="nav-item" role="presentation">
-                                <button className="nav-link" id="seo-tags-tab" data-bs-toggle="tab" data-bs-target="#seo-tags" type="button" role="tab" aria-controls="seo-tags" aria-selected="false">Thẻ SEO</button>
+                                <button className="nav-link" id="otherdetails-tab" data-bs-toggle="tab" data-bs-target="#otherdetails" type="button" role="tab" aria-controls="otherdetails" aria-selected="false">Thông tin khác</button>
                             </li>
                         </ul>
                         <div className="tab-content" id="myTabContent">
                             <div className="tab-pane card-body border fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-
-                                <div className="form-group mb-3">
-                                    <label>Slug</label>
-                                    <input type="text" name="slug" onChange={handleInput} value={categoryInput.slug} className="form-control" />
-                                    <small className="text-danger">{error.slug}</small>
-                                </div>
                                 <div className="form-group mb-3">
                                     <label>Tên danh mục</label>
                                     <input type="text" name="name" onChange={handleInput} value={categoryInput.name} className="form-control" />
                                     <small className="text-danger">{error.name}</small>
+                                </div>
+                                <div className="form-group mb-3">
+                                    <label>Slug</label>
+                                    <input type="text" name="slug" onChange={handleInput} value={categoryInput.slug} className="form-control" />
+                                    <small className="text-danger">{error.slug}</small>
                                 </div>
                                 <div className="form-group mb-3">
                                     <label>Mô tả</label>
@@ -93,23 +96,18 @@ function EditCategory(props) {
                                     <label>Trạng thái</label><br />
                                     <input type="checkbox" name="status" onChange={handleInput} value={categoryInput.status} /> Status 0 = hiển thị / 1 = ẩn
                                 </div>
-
                             </div>
-                            <div className="tab-pane card-body border fade" id="seo-tags" role="tabpanel" aria-labelledby="seo-tags-tab">
+                            <div className="tab-pane card-body border fade" id="otherdetails" role="tabpanel" aria-labelledby="otherdetails-tab">
 
-                                <div className="form-group mb-3">
-                                    <label>Meta Title</label>
-                                    <input type="text" name="meta_title" onChange={handleInput} value={categoryInput.meta_title} className="form-control" />
-                                    <small className="text-danger">{error.meta_title}</small>
+                                <div className="row">
+                                    <div className="col-md-8 form-group mb-3">
+                                        <label>Hình ảnh</label>
+                                        <input type="file" name="image" onChange={handleImage} className="form-control" />
+                                        <img src={`${config.BASE_URL}/${categoryInput.image}`} width="50px" alt={categoryInput.name} />
+                                        {/* <small className="text-danger">{error_list.image}</small> */}
+                                    </div>
                                 </div>
-                                <div className="form-group mb-3">
-                                    <label>Meta Keywords</label>
-                                    <textarea name="meta_keyword" onChange={handleInput} value={categoryInput.meta_keyword} className="form-control"></textarea>
-                                </div>
-                                <div className="form-group mb-3">
-                                    <label>Meta Description</label>
-                                    <textarea name="meta_descrip" onChange={handleInput} value={categoryInput.meta_descrip} className="form-control"></textarea>
-                                </div>
+
                             </div>
                         </div>
                         <button type="submit" className="btn btn-primary px-4 float-end">Cập nhật</button>

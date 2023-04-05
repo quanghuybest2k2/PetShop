@@ -1,16 +1,17 @@
 import React from 'react';
 import './css/about.css';
-import img from './img/petshop.jpg'
+import img from './imgs/petshop.jpg'
+import { Link } from 'react-router-dom';
 
 function About() {
     return (
-        <div>
+        <div className='about_page'>
             <main id="main">
                 {/* <!-- ======= Breadcrumbs ======= --> */}
                 <section id="breadcrumbs" class="breadcrumbs">
                     <div class="container">
                         <ol>
-                            <li><a href="#">Trang chủ</a></li>
+                            <li><Link to={"/"}>Trang chủ</Link></li>
                             <li>Giới thiệu</li>
                         </ol>
                         <h2>Giới thiệu về cửa hàng thú cưng</h2>
@@ -50,7 +51,7 @@ function About() {
                                     <i class="bi bi-emoji-smile"></i>
                                     <span class="purecounter">412</span>
                                     <p><strong>Khách hàng</strong> đánh giá sản phẩm</p>
-                                    <a href="#">Xem thêm &raquo;</a>
+                                    <Link to={"#"}>Xem thêm &raquo;</Link>
                                 </div>
                             </div>
 
@@ -59,7 +60,7 @@ function About() {
                                     <i class="bi bi-journal-richtext"></i>
                                     <span class="purecounter">150</span>
                                     <p><strong>Sản phẩm</strong> được đánh giá cao</p>
-                                    <a href="#">Xem thêm &raquo;</a>
+                                    <Link to={"#"}>Xem thêm &raquo;</Link>
                                 </div>
                             </div>
 
@@ -68,7 +69,7 @@ function About() {
                                     <i class="bi bi-headset"></i>
                                     <span class="purecounter">123</span>
                                     <p><strong>Phản hồi</strong> tích cực từ người dùng</p>
-                                    <a href="#">Xem thêm &raquo;</a>
+                                    <Link to={"#"}>Xem thêm &raquo;</Link>
                                 </div>
                             </div>
 
@@ -77,7 +78,7 @@ function About() {
                                     <i class="bi bi-people"></i>
                                     <span class="purecounter">423</span>
                                     <p><strong>Nhân viên</strong> đang làm việc tại các chi nhánh</p>
-                                    <a href="#">Xem thêm &raquo;</a>
+                                    <Link to={"#"}>Xem thêm &raquo;</Link>
                                 </div>
                             </div>
                         </div>

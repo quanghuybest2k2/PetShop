@@ -61,7 +61,7 @@ function Login() {
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <h1 className="text-center text-uppercase py-3">Đăng ký</h1>
+                    <h1 className="text-center text-uppercase py-3">Đăng nhập</h1>
                     <form onSubmit={loginSubmit}>
                         <div className="form-floating mb-3">
                             <input type="email" name="email" onChange={handleInput} value={loginInput.email} className="form-control" />
