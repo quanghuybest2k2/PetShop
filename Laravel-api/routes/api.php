@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AlbumController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\SubscriberController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,10 @@ Route::controller(CategoryController::class)->group(function () {
 Route::controller(AlbumController::class)->group(function () {
     Route::get('getAlbumPet', 'index');
     Route::post('store-albumPet', 'store');
+});
+// subscribers
+Route::controller(SubscriberController::class)->group(function () {
+    Route::post('subscribers', 'store');
 });
 // admin
 Route::middleware('auth:sanctum', 'isAPIAdmin')->group(function () {
