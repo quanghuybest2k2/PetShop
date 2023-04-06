@@ -61,7 +61,7 @@ function Navbar() {
                             <Link className="nav-link" to="/about">Giới thiệu</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/collections">Album</Link>
+                            <Link className="nav-link" to="/album">Album</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">Liên hệ</Link>
