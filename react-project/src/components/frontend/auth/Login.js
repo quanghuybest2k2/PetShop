@@ -45,7 +45,7 @@ function Login() {
                     swal("Warning", res.data.message, "warning");
                 }
                 else {
-                    setLogin({ ...loginInput, error_list: res.data.validation_errors });
+                    setLogin({ ...loginInput, error_list: res.data.validator_errors });
                 }
             });
         });
@@ -66,12 +66,12 @@ function Login() {
                         <div className="form-floating mb-3">
                             <input type="email" name="email" onChange={handleInput} value={loginInput.email} className="form-control" />
                             <label>Email</label>
-                            <span>{loginInput.error_list.email}</span>
+                            <span className='text-danger'>{loginInput.error_list.email}</span>
                         </div>
                         <div className="form-floating mb-3">
                             <input type="password" name="password" onChange={handleInput} value={loginInput.password} className="form-control" />
                             <label>Mật khẩu</label>
-                            <span>{loginInput.error_list.password}</span>
+                            <span className='text-danger'>{loginInput.error_list.password}</span>
                         </div>
                         <div className="d-grid col-6 mx-auto">
                             <button type="submit" className="btn btn-outline-primary btn-lg bg-primary-subtle">Đăng nhập</button>

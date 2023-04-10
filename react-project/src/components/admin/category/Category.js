@@ -10,9 +10,9 @@ function Category() {
         name: "",
         descrip: "",
         status: "",
-        error_list: [],
     });
     const [pricture, setPicture] = useState([]);
+    const [errorlist, setError] = useState([]);
 
     const handleInput = (e) => {
         e.persist();
@@ -56,30 +56,16 @@ function Category() {
                     descrip: "",
                     status: "",
                 });
+                setError([]);
             } else if (res.data.status === 400) {
-                swal("Warning", res.data.errors, "warning");
-                setCategory({ ...categoryInput, error_list: res.data.errors });
+                swal("Lỗi rồi bạn ơi!", "", "error");
+                setError(res.data.errors);
             }
         });
     };
 
-    var display_errors = [];
-    if (categoryInput.error_list) {
-        display_errors = [
-            categoryInput.error_list.slug,
-            categoryInput.error_list.name,
-        ];
-    }
-
     return (
         <div className="container-fluid px-4">
-            {display_errors.map((item) => {
-                return (
-                    <p className="mb-1" key={item}>
-                        {item}
-                    </p>
-                );
-            })}
 
             <div className="card mt-4">
                 <div className="card-header">
@@ -141,6 +127,7 @@ function Category() {
                                         value={categoryInput.name}
                                         className="form-control"
                                     />
+                                    <small className="text-danger">{errorlist.name}</small>
                                 </div>
                                 <div className="form-group mb-3">
                                     <label>Slug</label>
@@ -151,7 +138,7 @@ function Category() {
                                         value={categoryInput.slug}
                                         className="form-control"
                                     />
-                                    <span>{categoryInput.error_list.slug}</span>
+                                    <small className="text-danger">{errorlist.slug}</small>
                                 </div>
                                 <div className="form-group mb-3">
                                     <label>Mô tả</label>
@@ -189,7 +176,6 @@ function Category() {
                                             onChange={handleImage}
                                             className="form-control"
                                         />
-                                        {/* <small className="text-danger">{error_list.image}</small> */}
                                     </div>
                                 </div>
                             </div>

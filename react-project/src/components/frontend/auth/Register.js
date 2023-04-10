@@ -38,7 +38,7 @@ function Register() {
                     history.push('/');
                 }
                 else {
-                    setRegister({ ...registerInput, error_list: res.data.validation_errors });
+                    setRegister({ ...registerInput, error_list: res.data.validator_errors });
                 }
             });
         });
@@ -58,17 +58,17 @@ function Register() {
                         <div className="form-floating mb-3">
                             <input type="text" name="name" onChange={handleInput} value={registerInput.name} className="form-control" />
                             <label>Họ và tên</label>
-                            <span>{registerInput.error_list.name}</span>
+                            <span className='text-danger'>{registerInput.error_list.name}</span>
                         </div>
                         <div className="form-floating mb-3">
                             <input type="text" name="email" onChange={handleInput} value={registerInput.email} className="form-control" />
                             <label>Email</label>
-                            <span>{registerInput.error_list.email}</span>
+                            <span className='text-danger'>{registerInput.error_list.email}</span>
                         </div>
                         <div className="form-floating mb-3">
                             <input type="text" name="password" onChange={handleInput} value={registerInput.password} className="form-control" />
                             <label>Mật khẩu</label>
-                            <span>{registerInput.error_list.password}</span>
+                            <span className='text-danger'>{registerInput.error_list.password}</span>
                         </div>
                         <div className="d-grid col-6 mx-auto">
                             <button type="submit" className="btn btn-outline-primary btn-lg bg-primary-subtle">Đăng ký</button>

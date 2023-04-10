@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('category_id')
                 ->references('id')->on('categories')
                 ->onDelete('cascade');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('name');
             $table->mediumText('description')->nullable();
             $table->string('brand');
