@@ -30,6 +30,18 @@ const Sidebar = () => {
                             <Link className="nav-link" to="/admin/view-product">Xem thú cưng</Link>
                         </nav>
                     </div>
+                    <Link className="nav-link" to="/admin/orders">
+                        <div className="sb-nav-link-icon"><i class="bi bi-card-checklist"></i></div>
+                        Đặt hàng
+                    </Link>
+                    <Link className="nav-link" to="/admin/viewcomment">
+                        <div className="sb-nav-link-icon"><i class="bi bi-file-post"></i></div>
+                        Bình luận
+                    </Link>
+                    <Link className="nav-link" to="/admin/profile">
+                        <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
+                        Hồ sơ
+                    </Link>
                 </div>
             </div>
         </nav>

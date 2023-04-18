@@ -3,6 +3,8 @@
 use App\Http\Controllers\API\AlbumController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\CommentController;
+use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\SubscriberController;
 use Illuminate\Http\Request;
@@ -31,10 +33,10 @@ Route::middleware('auth:sanctum', 'isAPIAdmin')->group(function () {
     Route::get('/checkingAuthenticated', function () {
         return response()->json(['message' => 'Bạn đã đăng nhập', 'status' => 200], 200);
     });
-    // group controller
-    // Route::controller(Controlldername::class)->group(function () {
-    //     Route::post('store-entity', 'store');
-    // });
+    // Dashboard
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('view-dashboard', 'index');
+    });
     // Category
     Route::controller(CategoryController::class)->group(function () {
         Route::get('view-category', 'index');
@@ -44,6 +46,11 @@ Route::middleware('auth:sanctum', 'isAPIAdmin')->group(function () {
         Route::delete('delete-category/{id}', 'destroy');
         Route::get('all-category', 'allcategory');
     });
+    // Orders
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('admin/orders', 'index');
+        Route::get('admin/view-order/{id}', 'viewOrder');
+    });
     // Products
     Route::controller(ProductController::class)->group(function () {
         Route::post('store-product', 'store');
@@ -51,6 +58,12 @@ Route::middleware('auth:sanctum', 'isAPIAdmin')->group(function () {
         Route::get('edit-product/{id}', 'edit');
         Route::post('update-product/{id}', 'update');
         Route::delete('delete-product/{id}', 'destroy');
+    });
+    //
+    // View Comment in Admin
+    Route::controller(CommentController::class)->group(function () {
+        Route::get('view-comment', 'index');
+        Route::delete('delete-comment/{id}', 'deleteComment');
     });
 });
 
