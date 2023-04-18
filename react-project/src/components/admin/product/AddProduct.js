@@ -16,7 +16,6 @@ function AddProduct() {
         qty: "",
         brand: "",
         featured: "",
-        popular: "",
         status: "",
     });
     const [pricture, setPicture] = useState([]);
@@ -76,7 +75,6 @@ function AddProduct() {
         formData.append("qty", productInput.qty);
         formData.append("brand", productInput.brand);
         formData.append("featured", productInput.featured);
-        formData.append("popular", productInput.popular);
         formData.append("status", productInput.status);
 
         axios.post(`/api/store-product`, formData).then((res) => {
@@ -93,7 +91,6 @@ function AddProduct() {
                     qty: "",
                     brand: "",
                     featured: "",
-                    popular: "",
                     status: "",
                 });
                 setError([]);
@@ -280,16 +277,6 @@ function AddProduct() {
                                             name="featured"
                                             onChange={handleInput}
                                             value={productInput.featured}
-                                            className="w-50 h-50"
-                                        />
-                                    </div>
-                                    <div className="col-md-4 form-group mb-3">
-                                        <label>Phổ biến (check = Hiển thị)</label>
-                                        <input
-                                            type="checkbox"
-                                            name="popular"
-                                            onChange={handleInput}
-                                            value={productInput.popular}
                                             className="w-50 h-50"
                                         />
                                     </div>
