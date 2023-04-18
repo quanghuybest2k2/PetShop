@@ -78,7 +78,6 @@ function EditProduct(props) {
         formData.append('qty', productInput.qty);
         formData.append('brand', productInput.brand);
         formData.append('featured', allcheckbox.featured ? '1' : '0');
-        formData.append('popular', allcheckbox.popular ? '1' : '0');
         formData.append('status', allcheckbox.status ? '1' : '0');
 
         axios.post(`/api/update-product/${product_id}`, formData).then(res => {
@@ -186,10 +185,6 @@ function EditProduct(props) {
                                     <div className="col-md-4 form-group mb-3">
                                         <label>Thú cưng nổi bật (check = Hiển thị)</label>
                                         <input type="checkbox" name="featured" onChange={handleCheckbox} defaultChecked={allcheckbox.featured === 1 ? true : false} className="w-50 h-50" />
-                                    </div>
-                                    <div className="col-md-4 form-group mb-3">
-                                        <label>Phổ biến (check = Hiển thị)</label>
-                                        <input type="checkbox" name="popular" onChange={handleCheckbox} defaultChecked={allcheckbox.popular === 1 ? true : false} className="w-50 h-50" />
                                     </div>
                                     <div className="col-md-4 form-group mb-3">
                                         <label>Trạng thái (check = Ẩn đi)</label>
