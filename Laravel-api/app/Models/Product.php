@@ -24,7 +24,6 @@ class Product extends Model
         'qty',
         'image',
         'featured',
-        'popular',
         'status',
     ];
     protected $with = ['category'];
