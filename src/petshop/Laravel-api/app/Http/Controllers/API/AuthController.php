@@ -21,13 +21,20 @@ class AuthController extends Controller
                 'password' => 'required|min:8',
             ],
             [
-                'required'  => 'Bạn phải điền :attribute',
+                'required' => 'Bạn phải điền :attribute',
+                'max' => 'Trường :attribute không được vượt quá :max ký tự',
+                'email' => 'Địa chỉ email không hợp lệ',
+                'unique' => 'Địa chỉ email đã được sử dụng',
+                'min' => 'Mật khẩu phải có ít nhất :min ký tự',
             ]
         );
         if ($validator->fails()) {
-            return response()->json([
-                'validator_errors' => $validator->messages(),
-            ]);
+            return response()->json(
+                [
+                    'errors' => $validator->errors(),
+                ],
+                400
+            );
         } else {
             $user = User::create([
                 'name' => $request->name,

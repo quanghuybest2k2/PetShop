@@ -14,7 +14,10 @@ class SubscriberController extends Controller
     {
         $subscribers = Subscriber::all();
 
-        return response()->json($subscribers);
+        return response()->json([
+            'status' => 200,
+            'subscribers' => $subscribers
+        ], 200);
     }
 
     public function store(Request $request)
@@ -34,7 +37,7 @@ class SubscriberController extends Controller
             return response()->json([
                 'status' => 400,
                 'errors' => $validator->messages(),
-            ]);
+            ], 400);
         }
         $subscriber =  Subscriber::create([
             'email' => $request->input('email'),
@@ -48,7 +51,7 @@ class SubscriberController extends Controller
             return response()->json([
                 'status' => 409,
                 'errors' => 'Đăng ký thất bại!'
-            ]);
+            ], 409);
         }
     }
 
@@ -65,7 +68,7 @@ class SubscriberController extends Controller
             return response()->json([
                 'status' => 404,
                 'message' => 'Không tìm thấy id của subscriber!'
-            ]);
+            ], 404);
         }
     }
 }

@@ -21,7 +21,7 @@ class CartController extends Controller
                     return response()->json([
                         'status' => 409,
                         'message' => $productCheck->name . ' đã được thêm vào giỏ hàng!',
-                    ]);
+                    ], 409);
                 } else {
                     $cartitem = new Cart;
                     $cartitem->user_id = $user_id;
@@ -31,19 +31,19 @@ class CartController extends Controller
                     return response()->json([
                         'status' => 201,
                         'message' => 'Đã thêm vào giỏ hàng.',
-                    ]);
+                    ], 201);
                 }
             } else {
                 return response()->json([
                     'status' => 404,
                     'message' => 'Không tìm thấy thú cưng này!',
-                ]);
+                ], 404);
             }
         } else {
             return response()->json([
                 'status' => 401,
                 'message' => 'Đăng nhập để thêm vào giỏ hàng!',
-            ]);
+            ], 401);
         }
     }
     public function viewcart()
@@ -59,7 +59,7 @@ class CartController extends Controller
             return response()->json([
                 'status' => 401,
                 'message' => 'Đăng nhập để xem giỏ hàng!',
-            ]);
+            ], 401);
         }
     }
     public function updatequantity($cart_id, $scope)
@@ -81,7 +81,7 @@ class CartController extends Controller
             return response()->json([
                 'status' => 401,
                 'message' => 'Đăng nhập để tiếp tục!',
-            ]);
+            ], 401);
         }
     }
     public function deleteCartitem($cart_id)
@@ -99,13 +99,13 @@ class CartController extends Controller
                 return response()->json([
                     'status' => 404,
                     'message' => 'Không tìm thấy mục trong giỏ hàng!',
-                ]);
+                ], 404);
             }
         } else {
             return response()->json([
                 'status' => 401,
                 'message' => 'Đăng nhập để tiếp tục!',
-            ]);
+            ], 401);
         }
     }
 }

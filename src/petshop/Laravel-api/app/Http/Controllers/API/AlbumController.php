@@ -92,7 +92,7 @@ class AlbumController extends Controller
             return response()->json([
                 'status' => 401,
                 'message' => 'Bạn phải đăng nhập!',
-            ]);
+            ], 401);
         }
     }
 }

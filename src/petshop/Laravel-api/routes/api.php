@@ -52,6 +52,7 @@ Route::controller(CommentController::class)->group(function () {
 });
 // subscribers
 Route::controller(SubscriberController::class)->group(function () {
+    Route::get('getSubscribers', 'index');
     Route::post('subscribers', 'store');
 });
 // admin

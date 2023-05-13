@@ -35,7 +35,7 @@ class CommentController extends Controller
             return response()->json([
                 'status' => 422,
                 'errors' => $validator->messages(),
-            ]);
+            ], 422);
         }
         if (auth('sanctum')->check()) {
             $product = Product::where('slug', $slug)->where('status', '0')->first();
@@ -55,13 +55,13 @@ class CommentController extends Controller
                 return response()->json([
                     'status' => 404,
                     'message' => 'Không có thú cưng này!'
-                ]);
+                ], 404);
             }
         } else {
             return response()->json([
                 'status' => 401,
                 'message' => 'Bạn phải đăng nhập!',
-            ]);
+            ], 401);
         }
     }
     // người dùng xóa comment của chính họ
