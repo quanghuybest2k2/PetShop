@@ -1,70 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Redirect, useHistory } from 'react-router-dom';
-import axios from 'axios';
-import MasterLayout from './layouts/admin/MasterLayout';
-import swal from 'sweetalert';
+import React, { useState, useEffect } from "react";
+import { Route, Redirect, useHistory } from "react-router-dom";
+import axios from "axios";
+import MasterLayout from "./layouts/admin/MasterLayout";
+import swal from "sweetalert";
 
 function AdminPrivateRoute({ ...rest }) {
+  const history = useHistory();
 
-    const history = useHistory();
+  const [Authenticated, setAuthenticated] = useState(false);
+  const [loading, setloading] = useState(true);
 
-    const [Authenticated, setAuthenticated] = useState(false);
-    const [loading, setloading] = useState(true);
-
-    useEffect(() => {
-
-        axios.get(`/api/checkingAuthenticated`).then(res => {
-            if (res.status === 200) {
-                setAuthenticated(true);
-            }
-            setloading(false);
-        });
-
-        return () => {
-            setAuthenticated(false);
-        };
-    }, []);
-
-    axios.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
-        if (err.response.status === 401) {
-            swal("Không được phép", err.response.data.message, "warning");
-            history.push('/');
-        }
-        return Promise.reject(err);
+  useEffect(() => {
+    axios.get(`/api/v1/checkingAuthenticated`).then((res) => {
+      if (res.status === 200) {
+        setAuthenticated(true);
+      }
+      setloading(false);
     });
 
-    axios.interceptors.response.use(function (response) {
-        return response;
-    }, function (error) {
-        if (error.response.status === 403) // Access Denied
-        {
-            swal("Forbidden", error.response.data.message, "warning");
-            history.push('/403');
-        }
-        else if (error.response.status === 404) //Page Not Found
-        {
-            swal("404 Error", "Không tìm thấy trang", "warning");
-            history.push('/404');
-        }
-        return Promise.reject(error);
+    return () => {
+      setAuthenticated(false);
+    };
+  }, []);
+
+  axios.interceptors.response.use(
+    undefined,
+    function axiosRetryInterceptor(err) {
+      if (err.response.status === 401) {
+        swal("Không được phép", err.response.data.message, "warning");
+        history.push("/");
+      }
+      return Promise.reject(err);
     }
-    );
+  );
 
-    if (loading) {
-        return <h1>Đợi xíu nhé...</h1>
+  axios.interceptors.response.use(
+    function (response) {
+      return response;
+    },
+    function (error) {
+      if (error.response.status === 403) {
+        // Access Denied
+        swal("Forbidden", error.response.data.message, "warning");
+        history.push("/403");
+      } else if (error.response.status === 404) {
+        //Page Not Found
+        swal("404 Error", "Không tìm thấy trang", "warning");
+        history.push("/404");
+      }
+      return Promise.reject(error);
     }
+  );
 
-    return (
+  if (loading) {
+    return <h1>Đợi xíu nhé...</h1>;
+  }
 
-        <Route {...rest}
-            render={({ props, location }) =>
-                Authenticated ?
-                    (<MasterLayout {...props} />) :
-                    (<Redirect to={{ pathname: "/login", state: { from: location } }} />)
-            }
-        />
-
-    );
+  return (
+    <Route
+      {...rest}
+      render={({ props, location }) =>
+        Authenticated ? (
+          <MasterLayout {...props} />
+        ) : (
+          <Redirect to={{ pathname: "/login", state: { from: location } }} />
+        )
+      }
+    />
+  );
 }
 
 export default AdminPrivateRoute;

@@ -16,7 +16,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert(
             [
                 [
-                    'category_id' => 1,
+                    'category_id' => 2,
                     'slug' => 'miu-miu',
                     'name' => 'Miu Miu',
                     'description' => 'Miu Miu là mèo đó',
@@ -30,7 +30,7 @@ class ProductSeeder extends Seeder
                     'count' => 6,
                 ],
                 [
-                    'category_id' => 2,
+                    'category_id' => 1,
                     'slug' => 'cho-shiba',
                     'name' => 'Chó Shiba',
                     'description' => 'Giống chó Nhật Bản',
@@ -44,7 +44,7 @@ class ProductSeeder extends Seeder
                     'count' => 0,
                 ],
                 [
-                    'category_id' => 1,
+                    'category_id' => 2,
                     'slug' => 'meo-trang',
                     'name' => 'Mèo Trắng',
                     'description' => 'Mèo màu trắng',
@@ -58,7 +58,7 @@ class ProductSeeder extends Seeder
                     'count' => 14,
                 ],
                 [
-                    'category_id' => 2,
+                    'category_id' => 1,
                     'slug' => 'chow-chow',
                     'name' => 'Chow Chow',
                     'description' => 'Chó Canada',
@@ -72,7 +72,7 @@ class ProductSeeder extends Seeder
                     'count' => 4,
                 ],
                 [
-                    'category_id' => 2,
+                    'category_id' => 1,
                     'slug' => 'cau-vang',
                     'name' => 'Cậu Vàng',
                     'description' => 'Bạn Lão Hạc',
@@ -86,7 +86,7 @@ class ProductSeeder extends Seeder
                     'count' => 0,
                 ],
                 [
-                    'category_id' => 2,
+                    'category_id' => 1,
                     'slug' => 'so-co-la',
                     'name' => 'Sô cô la',
                     'description' => 'Chó này màu nâu',

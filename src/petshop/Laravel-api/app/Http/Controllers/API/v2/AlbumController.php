@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\v2;
 
 use App\Http\Controllers\Controller;
 use App\Models\Album;
@@ -68,7 +68,7 @@ class AlbumController extends Controller
                 return response()->json([
                     'status' => 422,
                     'errors' => $validator->messages(),
-                ]);
+                ], 422);
             } else {
                 $user_id = auth('sanctum')->user()->id;
                 $pet = new Album;

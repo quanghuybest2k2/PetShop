@@ -34,7 +34,7 @@ function Checkout() {
   useEffect(() => {
     let isMounted = true;
 
-    axios.get(`/api/cart`).then((res) => {
+    axios.get(`api/v1/cart`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
           setCart(res.data.cart);
@@ -81,7 +81,7 @@ function Checkout() {
             },
           });
           axios
-            .post("/api/place-order", {
+            .post("api/v1/place-order", {
               ...data,
               stripeToken: token.id,
             })

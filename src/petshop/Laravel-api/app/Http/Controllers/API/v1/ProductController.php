@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
@@ -47,7 +47,7 @@ class ProductController extends Controller
             return response()->json([
                 'status' => 422,
                 'errors' => $validator->messages(),
-            ], 422);
+            ]);
         } else {
             $product = new Product;
             $product->category_id = $request->input('category_id');
@@ -97,7 +97,7 @@ class ProductController extends Controller
             return response()->json([
                 'status' => 404,
                 'message' => 'Không tìm thấy thú cưng này!',
-            ], 404);
+            ]);
         }
     }
     // sửa thú cưng
@@ -122,7 +122,7 @@ class ProductController extends Controller
             return response()->json([
                 'status' => 422,
                 'errors' => $validator->messages(),
-            ], 422);
+            ]);
         } else {
             $product = Product::find($id);
             if ($product) {
@@ -158,7 +158,7 @@ class ProductController extends Controller
                 return response()->json([
                     'status' => 404,
                     'message' => 'Không tìm thấy thú cưng này!',
-                ], 404);
+                ]);
             }
         }
     }
@@ -180,7 +180,7 @@ class ProductController extends Controller
             return response()->json([
                 'status' => 404,
                 'message' => 'Không tìm thấy id của thú cưng!'
-            ], 404);
+            ]);
         }
     }
 }

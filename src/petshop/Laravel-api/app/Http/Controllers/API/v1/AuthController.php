@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -21,20 +21,13 @@ class AuthController extends Controller
                 'password' => 'required|min:8',
             ],
             [
-                'required' => 'Bạn phải điền :attribute',
-                'max' => 'Trường :attribute không được vượt quá :max ký tự',
-                'email' => 'Địa chỉ email không hợp lệ',
-                'unique' => 'Địa chỉ email đã được sử dụng',
-                'min' => 'Mật khẩu phải có ít nhất :min ký tự',
+                'required'  => 'Bạn phải điền :attribute',
             ]
         );
         if ($validator->fails()) {
-            return response()->json(
-                [
-                    'errors' => $validator->errors(),
-                ],
-                400
-            );
+            return response()->json([
+                'validator_errors' => $validator->messages(),
+            ]);
         } else {
             $user = User::create([
                 'name' => $request->name,
