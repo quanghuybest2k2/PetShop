@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+// v1 web api
 use App\Http\Controllers\API\v1\AuthController;
 use App\Http\Controllers\API\v1\CartController;
 use App\Http\Controllers\API\v1\AlbumController;
@@ -13,7 +14,18 @@ use App\Http\Controllers\API\v1\CheckoutController;
 use App\Http\Controllers\API\v1\FrontendController;
 use App\Http\Controllers\API\v1\DashboardController;
 use App\Http\Controllers\API\v1\SubscriberController;
-
+// v2 testing api
+// use App\Http\Controllers\API\v2\AuthController;
+// use App\Http\Controllers\API\v2\CartController;
+// use App\Http\Controllers\API\v2\AlbumController;
+// use App\Http\Controllers\API\v2\OrderController;
+// use App\Http\Controllers\API\v2\CommentController;
+// use App\Http\Controllers\API\v2\ProductController;
+// use App\Http\Controllers\API\v2\CategoryController;
+// use App\Http\Controllers\API\v2\CheckoutController;
+// use App\Http\Controllers\API\v2\FrontendController;
+// use App\Http\Controllers\API\v2\DashboardController;
+// use App\Http\Controllers\API\v2\SubscriberController;
 
 Route::prefix('v1')->group(function () {
     //dang ky
@@ -103,6 +115,6 @@ Route::prefix('v1')->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
     });
 });
-    // Route::middleware('auth:api')->get('/user', function (Request $request) {
-    //     return $request->user();
-    // });
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });

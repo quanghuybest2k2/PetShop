@@ -30,7 +30,7 @@ class AuthTest extends TestCase
             'password' => $this->faker->password(8),
         ];
 
-        $response = $this->postJson('/api/register', $userData);
+        $response = $this->postJson('api/v2/register', $userData);
 
         $response->assertStatus(200);
         $response->assertJson([
@@ -49,7 +49,7 @@ class AuthTest extends TestCase
     }
     public function test_register_with_missing_fields()
     {
-        $response = $this->postJson('/api/register');
+        $response = $this->postJson('api/v2/register');
 
         $response->assertStatus(400);
         $response->assertJsonValidationErrors(['name', 'email', 'password']);
@@ -63,7 +63,7 @@ class AuthTest extends TestCase
         ]);
 
         // Gửi yêu cầu đăng nhập với email và password đúng
-        $response = $this->postJson('/api/login', [
+        $response = $this->postJson('api/v2/login', [
             'email' => $this->email,
             'password' => $this->password,
         ]);
@@ -97,7 +97,7 @@ class AuthTest extends TestCase
         Sanctum::actingAs($user);
 
         // Gửi một yêu cầu POST đến API logout
-        $response = $this->post('/api/logout');
+        $response = $this->post('api/v2/logout');
 
         // Kiểm tra xem token đã bị xóa chưa
         $this->assertCount(0, $user->tokens);

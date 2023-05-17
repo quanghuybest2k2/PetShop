@@ -13,7 +13,7 @@ class AlbumTest extends TestCase
     public function testReturnsCorrectData()
     {
 
-        $response = $this->get('/api/getAlbumPet');
+        $response = $this->get('api/v2/getAlbumPet');
 
         $response->assertStatus(200)
             ->assertJsonStructure([

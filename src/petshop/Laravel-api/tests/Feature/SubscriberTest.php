@@ -19,7 +19,7 @@ class SubscriberTest extends TestCase
         // Lấy danh sách subscriber từ cơ sở dữ liệu
         $subscribers = Subscriber::all();
 
-        $response = $this->get('/api/getSubscribers');
+        $response = $this->get('api/v2/getSubscribers');
 
         $response->assertStatus(200)
             ->assertJson([
@@ -30,7 +30,7 @@ class SubscriberTest extends TestCase
 
     public function testApiWith200()
     {
-        $response = $this->get('/api/getSubscribers');
+        $response = $this->get('api/v2/getSubscribers');
 
         $response->assertStatus(200)
             ->assertJson([
@@ -40,7 +40,7 @@ class SubscriberTest extends TestCase
     }
     public function testStoreSubscriberWithValidator()
     {
-        $response = $this->post('/api/subscribers', ['email' => $this->email]);
+        $response = $this->post('api/v2/subscribers', ['email' => $this->email]);
 
         $response->assertStatus(200);
 

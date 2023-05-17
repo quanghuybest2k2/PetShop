@@ -22,7 +22,7 @@ class ProductTest extends TestCase
         // Gửi yêu cầu GET tới API
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('/api/view-product');
+        ])->get('api/v2/view-product');
 
         // Kiểm tra phản hồi của API
         $response->assertStatus(200)
@@ -73,7 +73,7 @@ class ProductTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->post('/api/store-product', $request);
+        ])->post('api/v2/store-product', $request);
 
         $response->assertStatus(200);
         $response->assertJson([
@@ -92,7 +92,7 @@ class ProductTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->delete('/api/delete-product/' . $id);
+        ])->delete('api/v2/delete-product/' . $id);
 
         $response->assertStatus(200);
         $response->assertJson([
