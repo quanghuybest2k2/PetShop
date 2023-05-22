@@ -26,7 +26,7 @@ const Gallery = () => {
   useEffect(() => {
     let isMounted = true;
 
-    axios.get(`api/v1/getAlbumPet`).then((res) => {
+    axios.get(`getAlbumPet`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
           setPetList(res.data.pets);
@@ -42,7 +42,7 @@ const Gallery = () => {
   useEffect(() => {
     let isMounted = true;
 
-    axios.get(`api/v1/get-all-category`).then((res) => {
+    axios.get(`get-all-category`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
           setCategorylist(res.data.category);

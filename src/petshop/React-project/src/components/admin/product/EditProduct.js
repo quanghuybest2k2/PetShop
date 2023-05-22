@@ -38,14 +38,14 @@ function EditProduct(props) {
   };
 
   useEffect(() => {
-    axios.get(`api/v1/all-category`).then((res) => {
+    axios.get(`all-category`).then((res) => {
       if (res.data.status === 200) {
         setCategorylist(res.data.category);
       }
     });
 
     const product_id = props.match.params.id;
-    axios.get(`api/v1/edit-product/${product_id}`).then((res) => {
+    axios.get(`edit-product/${product_id}`).then((res) => {
       if (res.data.status === 200) {
         // console.log(res.data.product);
         setProduct(res.data.product);
@@ -77,7 +77,7 @@ function EditProduct(props) {
     formData.append("featured", allcheckbox.featured ? "1" : "0");
     formData.append("status", allcheckbox.status ? "1" : "0");
 
-    axios.post(`api/v1/update-product/${product_id}`, formData).then((res) => {
+    axios.post(`update-product/${product_id}`, formData).then((res) => {
       if (res.data.status === 200) {
         swal("Success", res.data.message, "success");
         console.log(allcheckbox);

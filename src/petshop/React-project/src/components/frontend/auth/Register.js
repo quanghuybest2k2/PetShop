@@ -26,10 +26,10 @@ function Register() {
       email: registerInput.email,
       password: registerInput.password,
     };
-
+    // bảo vệ @cfrs
     axios.get("/sanctum/csrf-cookie").then((response) => {
-      axios.post(`api/v1/register`, data).then((res) => {
-        // axios.post(`http://127.0.0.1:8000/api/register`, data).then(res => {
+      axios.post(`register`, data).then((res) => {
+        // axios.post(`http://127.0.0.1:8000/api/v1/register`, data).then(res => {
         if (res.data.status === 200) {
           localStorage.setItem("auth_token", res.data.token);
           localStorage.setItem("auth_name", res.data.username);

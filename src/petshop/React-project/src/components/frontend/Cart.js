@@ -19,7 +19,7 @@ function Cart() {
   useEffect(() => {
     let isMounted = true;
 
-    axios.get(`api/v1/cart`).then((res) => {
+    axios.get(`cart`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
           setCart(res.data.cart);
@@ -63,7 +63,7 @@ function Cart() {
     updateCartQuantity(cart_id, "inc");
   };
   function updateCartQuantity(cart_id, scope) {
-    axios.put(`api/v1/cart-updatequantity/${cart_id}/${scope}`).then((res) => {
+    axios.put(`cart-updatequantity/${cart_id}/${scope}`).then((res) => {
       if (res.data.status === 200) {
         swal("Success", res.data.message, "success");
       }
@@ -71,12 +71,13 @@ function Cart() {
   }
 
   const deleteCartItem = (e, cart_id) => {
+    // ngăn không cho chuyển trang khi submit
     e.preventDefault();
 
     const thisClicked = e.currentTarget;
     thisClicked.innerText = "Đã xóa";
 
-    axios.delete(`api/v1/delete-cartitem/${cart_id}`).then((res) => {
+    axios.delete(`delete-cartitem/${cart_id}`).then((res) => {
       if (res.data.status === 200) {
         swal("Success", res.data.message, "success");
         thisClicked.closest("tr").remove();
@@ -185,8 +186,7 @@ function Cart() {
               </h4>
               <hr />
               <Link to="/checkout" className="btn btn-primary">
-                {" "}
-                Thanh toán{" "}
+                Thanh toán
               </Link>
             </div>
           </div>

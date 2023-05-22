@@ -18,7 +18,7 @@ function ViewProduct(props) {
 
     const product_slug = props.match.params.slug;
     axios
-      .get(`api/v1/fetchproducts/${product_slug}?page=${currentPage}`)
+      .get(`fetchproducts/${product_slug}?page=${currentPage}`)
       .then((res) => {
         if (isMounted) {
           if (res.data.status === 200) {

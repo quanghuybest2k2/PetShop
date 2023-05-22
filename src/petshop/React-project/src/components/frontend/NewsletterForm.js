@@ -20,7 +20,7 @@ function NewsletterForm() {
 
     const data = new FormData();
     data.append("email", email.email);
-    axios.post(`api/v1/subscribers`, data).then((res) => {
+    axios.post(`subscribers`, data).then((res) => {
       if (res.data.status === 200) {
         e.target.reset();
         swal("Success", res.data.message, "success");

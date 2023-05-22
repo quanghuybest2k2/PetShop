@@ -4,6 +4,7 @@ import axios from "axios";
 import swal from "sweetalert";
 import { Link, useHistory } from "react-router-dom";
 import Pet_logo from "./img/gpet.jpg";
+import config from "../../../config";
 
 function Login() {
   document.title = "Đăng nhập";
@@ -28,24 +29,28 @@ function Login() {
       password: loginInput.password,
     };
 
-    axios.get("/sanctum/csrf-cookie").then((response) => {
-      axios.post(`api/v1/login`, data).then((res) => {
-        if (res.data.status === 200) {
-          localStorage.setItem("auth_token", res.data.token);
-          localStorage.setItem("auth_name", res.data.username);
-          swal("Success", res.data.message, "success");
-          if (res.data.role === "admin") {
-            history.push("/admin/dashboard");
+    axios
+      .get("/sanctum/csrf-cookie", {
+        baseURL: config.BASE_URL, // ghi đề base url của axios
+      })
+      .then((response) => {
+        axios.post(`login`, data).then((res) => {
+          if (res.data.status === 200) {
+            localStorage.setItem("auth_token", res.data.token);
+            localStorage.setItem("auth_name", res.data.username);
+            swal("Success", res.data.message, "success");
+            if (res.data.role === "admin") {
+              history.push("/admin/dashboard");
+            } else {
+              history.push("/");
+            }
+          } else if (res.data.status === 401) {
+            swal("Warning", res.data.message, "warning");
           } else {
-            history.push("/");
+            setLogin({ ...loginInput, error_list: res.data.validator_errors });
           }
-        } else if (res.data.status === 401) {
-          swal("Warning", res.data.message, "warning");
-        } else {
-          setLogin({ ...loginInput, error_list: res.data.validator_errors });
-        }
+        });
       });
-    });
   };
 
   return (

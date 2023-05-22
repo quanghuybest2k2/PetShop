@@ -45,7 +45,7 @@ function Category() {
     data.append("name", categoryInput.name);
     data.append("description", categoryInput.descrip);
     data.append("status", categoryInput.status);
-    axios.post(`api/v1/store-category`, data).then((res) => {
+    axios.post(`store-category`, data).then((res) => {
       if (res.data.status === 200) {
         e.target.reset();
         swal("Success", res.data.message, "success");

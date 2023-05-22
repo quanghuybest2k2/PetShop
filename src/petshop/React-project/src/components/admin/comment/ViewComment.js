@@ -11,7 +11,7 @@ function ViewComment() {
     let isMounted = true;
     document.title = "Xem bình luận khách hàng";
 
-    axios.get(`api/v1/view-comment`).then((res) => {
+    axios.get(`view-comment`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
           setComment(res.data.comments);
@@ -30,7 +30,7 @@ function ViewComment() {
     const thisClicked = e.currentTarget;
     thisClicked.innerText = "Đã xóa";
 
-    axios.delete(`api/v1/deleteComment/${id}`).then((res) => {
+    axios.delete(`deleteComment/${id}`).then((res) => {
       if (res.data.status === 202) {
         swal("Success", res.data.message, "success");
         thisClicked.closest("tr").remove();

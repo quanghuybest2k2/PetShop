@@ -11,7 +11,7 @@ function ViewCategory() {
   useEffect(() => {
     let isMounted = true;
 
-    axios.get(`api/v1/view-category`).then((res) => {
+    axios.get(`view-category`).then((res) => {
       if (isMounted) {
         if (res.status === 200) {
           setCategorylist(res.data.category);
@@ -31,7 +31,7 @@ function ViewCategory() {
     const thisClicked = e.currentTarget;
     thisClicked.innerText = "Đã xóa";
 
-    axios.delete(`api/v1/delete-category/${id}`).then((res) => {
+    axios.delete(`delete-category/${id}`).then((res) => {
       if (res.data.status === 200) {
         swal("Success", res.data.message, "success");
         thisClicked.closest("tr").remove();

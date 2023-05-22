@@ -24,7 +24,7 @@ const RenderHome = () => {
   useEffect(() => {
     let isMountered = true;
 
-    axios.get(`api/v1/viewHomePage`).then((res) => {
+    axios.get(`viewHomePage`).then((res) => {
       if (isMountered) {
         if (res.data.status === 200) {
           setProduct(res.data.products);

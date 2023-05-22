@@ -26,7 +26,7 @@ function AddPet() {
   useEffect(() => {
     let isMounted = true;
 
-    axios.get(`api/v1/get-all-category`).then((res) => {
+    axios.get(`get-all-category`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
           setCategorylist(res.data.category);
@@ -47,7 +47,7 @@ function AddPet() {
     formData.append("emotion", petInput.emotion);
     formData.append("image_pet", pricture.image_pet);
 
-    axios.post(`api/v1/store-albumPet`, formData).then((res) => {
+    axios.post(`store-albumPet`, formData).then((res) => {
       if (res.data.status === 200) {
         swal("Success", res.data.message, "success");
         history.push("/album");

@@ -12,7 +12,7 @@ function Dashboard() {
     let isMounted = true;
     document.title = "Dashboard";
 
-    axios.get(`api/v1/view-dashboard`).then((res) => {
+    axios.get(`view-dashboard`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
           setProduct(res.data.products);

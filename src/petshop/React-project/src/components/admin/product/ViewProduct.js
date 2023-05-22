@@ -15,7 +15,7 @@ function ViewProduct() {
     const thisClicked = e.currentTarget;
     thisClicked.innerText = "Đã xóa";
 
-    axios.delete(`api/v1/delete-product/${id}`).then((res) => {
+    axios.delete(`delete-product/${id}`).then((res) => {
       if (res.data.status === 200) {
         swal("Success", res.data.message, "success");
         thisClicked.closest("tr").remove();
@@ -30,7 +30,7 @@ function ViewProduct() {
     let isMounted = true;
     document.title = "Xem thú cưng";
 
-    axios.get(`api/v1/view-product`).then((res) => {
+    axios.get(`view-product`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
           setProduct(res.data.products);

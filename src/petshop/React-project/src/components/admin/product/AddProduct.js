@@ -47,7 +47,7 @@ function AddProduct() {
   useEffect(() => {
     let isMounted = true;
 
-    axios.get(`api/v1/all-category`).then((res) => {
+    axios.get(`all-category`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
           setCategorylist(res.data.category);
@@ -77,7 +77,7 @@ function AddProduct() {
     formData.append("featured", productInput.featured);
     formData.append("status", productInput.status);
 
-    axios.post(`api/v1/store-product`, formData).then((res) => {
+    axios.post(`store-product`, formData).then((res) => {
       if (res.data.status === 200) {
         swal("Success", res.data.message, "success");
         setProduct({

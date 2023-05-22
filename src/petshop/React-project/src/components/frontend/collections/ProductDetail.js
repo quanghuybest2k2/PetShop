@@ -29,7 +29,7 @@ function ProductDetail(props) {
     const product_slug = props.match.params.product;
 
     axios
-      .get(`api/v1/viewproductdetail/${category_slug}/${product_slug}`)
+      .get(`viewproductdetail/${category_slug}/${product_slug}`)
       .then((res) => {
         if (isMounted) {
           if (res.data.status === 200) {
@@ -80,7 +80,7 @@ function ProductDetail(props) {
     const formData = new FormData();
     formData.append("comment", commentInput.comment);
 
-    axios.post(`api/v1/store-comment/${product.slug}`, formData).then((res) => {
+    axios.post(`store-comment/${product.slug}`, formData).then((res) => {
       if (res.data.status === 200) {
         // swal("Success", res.data.message, "success");
         setComment({
@@ -104,7 +104,7 @@ function ProductDetail(props) {
   const deleteComment = (e, id) => {
     e.preventDefault();
 
-    axios.delete(`api/v1/delete-comment/${id}`).then((res) => {
+    axios.delete(`delete-comment/${id}`).then((res) => {
       if (res.data.status === 202) {
         swal("Thành công", res.data.message, "success");
         setError([]);

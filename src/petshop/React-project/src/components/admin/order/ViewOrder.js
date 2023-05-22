@@ -12,7 +12,7 @@ function ViewOrder(props) {
     document.title = "Xem chi tiết đơn hàng";
 
     const order_id = props.match.params.id;
-    axios.get(`api/v1/admin/view-order/${order_id}`).then((res) => {
+    axios.get(`admin/view-order/${order_id}`).then((res) => {
       if (res.data.status === 200) {
         setOrder(res.data.order);
       } else if (res.data.status === 404) {

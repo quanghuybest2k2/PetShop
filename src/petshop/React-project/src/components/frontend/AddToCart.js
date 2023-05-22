@@ -2,7 +2,7 @@ import axios from "axios";
 import swal from "sweetalert";
 
 export const handleAddToCart = (data) => {
-  axios.post(`api/v1/add-to-cart`, data).then((res) => {
+  axios.post(`add-to-cart`, data).then((res) => {
     if (res.data.status === 201) {
       swal("Success", res.data.message, "success");
     } else if (res.data.status === 409) {

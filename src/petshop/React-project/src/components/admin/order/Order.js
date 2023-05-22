@@ -11,7 +11,7 @@ function Order() {
     let isMounted = true;
     document.title = "Đặt hàng";
 
-    axios.get(`api/v1/admin/orders`).then((res) => {
+    axios.get(`admin/orders`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
           setOrders(res.data.orders);

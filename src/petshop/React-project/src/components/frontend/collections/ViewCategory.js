@@ -10,7 +10,7 @@ function ViewCategory() {
   useEffect(() => {
     let isMountered = true;
 
-    axios.get(`api/v1/getCategory`).then((res) => {
+    axios.get(`getCategory`).then((res) => {
       if (isMountered) {
         if (res.data.status === 200) {
           // console.log(res.data.category);
