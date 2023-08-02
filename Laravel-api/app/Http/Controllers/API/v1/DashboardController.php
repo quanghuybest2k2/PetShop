@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Comment;
 use App\Models\Order;
-use App\Models\OrderItems;
+use App\Models\Comment;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\OrderItems;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class DashboardController extends Controller
 {
@@ -19,7 +20,7 @@ class DashboardController extends Controller
         $orders = Order::count();
         $comments = Comment::count();
         return response()->json([
-            'status' => 200,
+            'status' => Response::HTTP_OK,
             'products' => $products,
             'category' => $category,
             'orders' => $orders,

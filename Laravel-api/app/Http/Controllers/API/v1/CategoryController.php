@@ -7,15 +7,16 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
     // view category
     public function index()
     {
-        $category = Category::all();
+        $category = Category::where('status', '0');
         return response()->json([
-            'status' => 200,
+            'status' => Response::HTTP_OK,
             'category' => $category,
         ]);
     }
@@ -24,7 +25,7 @@ class CategoryController extends Controller
     {
         $category = Category::where('status', '0')->get();
         return response()->json([
-            'status' => 200,
+            'status' => Response::HTTP_OK,
             'category' => $category,
         ]);
     }
@@ -33,7 +34,7 @@ class CategoryController extends Controller
     {
         $category = Category::where('status', '0')->get();
         return response()->json([
-            'status' => 200,
+            'status' => Response::HTTP_OK,
             'category' => $category,
         ]);
     }
@@ -43,14 +44,14 @@ class CategoryController extends Controller
         $category = Category::find($id);
         if ($category) {
             return response()->json([
-                'status' => 200,
+                'status' => Response::HTTP_OK,
                 'category' => $category,
             ]);
         } else {
             return response()->json([
-                'status' => 404,
+                'status' => Response::HTTP_NOT_FOUND,
                 'message' => 'Không tìm thấy id của danh mục!',
-            ]);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
     // create category
@@ -59,20 +60,28 @@ class CategoryController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'slug' => 'required|max:191|unique:categories,slug',
-                'name' => 'required|max:191',
-                'image' => 'required|image|mimes:jpeg,png,jpg|max:15360',
+                'slug' => 'required|max:255|unique:categories,slug',
+                'name' => 'required|max:255',
+                'image' => 'required|image|mimes:jpeg,png,jpg|max:10240',
             ],
             [
                 'required'  => 'Bạn phải điền :attribute',
-                'unique'  => 'Slug đã tồn tại!',
+                'max'  => ':attribute không vượt quá :max ký tự',
+                'unique'  => ':attribute đã tồn tại',
+                'mimes'  => 'Định dạng :attribute không hợp lệ',
+                'image'  => ':attribute phải là ảnh',
+            ],
+            [
+                'slug' => 'Tên định danh',
+                'name' => 'Tên danh mục',
+                'image' => 'Hình ảnh',
             ]
         );
         if ($validator->fails()) {
             return response()->json([
-                'status' => 400,
+                'status' => Response::HTTP_BAD_REQUEST,
                 'errors' => $validator->messages(),
-            ]);
+            ], Response::HTTP_BAD_REQUEST);
         } else {
             $category = new Category;
             $category->slug = $request->input('slug');
@@ -88,7 +97,7 @@ class CategoryController extends Controller
             $category->status = $request->input('status') == true ? '1' : '0';
             $category->save();
             return response()->json([
-                'status' => 200,
+                'status' => Response::HTTP_OK,
                 'message' => 'Thêm danh mục thành công.'
             ]);
         }
@@ -99,8 +108,8 @@ class CategoryController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'slug' => 'required|max:191',
-                'name' => 'required|max:191',
+                'slug' => 'required|max:255',
+                'name' => 'required|max:255',
 
             ],
             [
@@ -109,9 +118,9 @@ class CategoryController extends Controller
         );
         if ($validator->fails()) {
             return response()->json([
-                'status' => 422,
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY,
                 'errors' => $validator->messages(),
-            ]);
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         } else {
             $category = Category::find($id);
             if ($category) {
@@ -132,14 +141,14 @@ class CategoryController extends Controller
                 $category->status = $request->input('status') == true ? '1' : '0';
                 $category->save();
                 return response()->json([
-                    'status' => 200,
+                    'status' => Response::HTTP_OK,
                     'message' => 'Cập nhật danh mục thành công.'
                 ]);
             } else {
                 return response()->json([
-                    'status' => 404,
+                    'status' => Response::HTTP_NOT_FOUND,
                     'message' => 'Không tìm thấy id của danh mục!'
-                ]);
+                ], Response::HTTP_NOT_FOUND);
             }
         }
     }
@@ -153,14 +162,14 @@ class CategoryController extends Controller
             }
             $category->delete();
             return response()->json([
-                'status' => 200,
+                'status' => Response::HTTP_OK,
                 'message' => 'Đã xóa danh mục.'
             ]);
         } else {
             return response()->json([
-                'status' => 404,
+                'status' => Response::HTTP_NOT_FOUND,
                 'message' => 'Không tìm thấy id của danh mục!'
-            ]);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
 }

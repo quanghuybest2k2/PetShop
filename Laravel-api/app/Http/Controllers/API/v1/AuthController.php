@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -21,13 +22,23 @@ class AuthController extends Controller
                 'password' => 'required|min:8',
             ],
             [
-                'required'  => 'Bạn phải điền :attribute',
+                'required' => 'Bạn phải điền :attribute',
+                'max' => ':attribute không được vượt quá :max ký tự',
+                'email' => ':attribute không hợp lệ',
+                'unique' => ':attribute đã được sử dụng',
+                'min' => ':attribute phải có ít nhất :min ký tự',
+            ],
+            [
+                'name' => 'Họ và tên',
+                'email' => 'Email',
+                'password' => 'Mật khẩu',
             ]
         );
         if ($validator->fails()) {
             return response()->json([
-                'validator_errors' => $validator->messages(),
-            ]);
+                'status' => Response::HTTP_BAD_REQUEST,
+                'errors' => $validator->errors(),
+            ], Response::HTTP_BAD_REQUEST);
         } else {
             $user = User::create([
                 'name' => $request->name,
@@ -36,7 +47,7 @@ class AuthController extends Controller
             ]);
             $token = $user->createToken($user->email . '_Token')->plainTextToken;
             return response()->json([
-                'status' => 200,
+                'status' => Response::HTTP_OK,
                 'username' => $user->name,
                 'token' => $token,
                 'message' => 'Đăng ký thành công.',
@@ -48,11 +59,17 @@ class AuthController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'email' => 'required|max:191',
-                'password' => 'required',
+                'email' => 'required|max:255',
+                'password' => 'required|min:8',
             ],
             [
                 'required'  => 'Bạn phải điền :attribute',
+                'max' => ':attribute không được vượt quá :max ký tự',
+                'min' => ':attribute phải có ít nhất :min ký tự',
+            ],
+            [
+                'email' => 'Email',
+                'password' => 'Mật khẩu'
             ]
         );
         if ($validator->fails()) {
@@ -63,9 +80,9 @@ class AuthController extends Controller
             $user = User::where('email', $request->email)->first();
             if (!$user || !Hash::check($request->password, $user->password)) {
                 return response()->json([
-                    'status' => 401,
+                    'status' => Response::HTTP_UNAUTHORIZED,
                     'message' => 'Thông tin không hợp lệ!',
-                ]);
+                ], Response::HTTP_UNAUTHORIZED);
             } else {
                 if ($user->role_as == 1) { // admin
                     $role = 'admin';
@@ -75,7 +92,7 @@ class AuthController extends Controller
                     $token = $user->createToken($user->email . '_Token', [''])->plainTextToken;
                 }
                 return response()->json([
-                    'status' => 200,
+                    'status' => Response::HTTP_OK,
                     'username' => $user->name,
                     'token' => $token,
                     'message' => 'Đăng nhập thành công.',
@@ -88,7 +105,7 @@ class AuthController extends Controller
     {
         auth()->user()->tokens()->delete();
         return response()->json([
-            'status' => 200,
+            'status' => Response::HTTP_OK,
             'message' => 'Đã đăng xuất.',
         ]);
     }

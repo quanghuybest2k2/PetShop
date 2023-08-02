@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('qty');
             $table->string('image')->nullable();
             $table->tinyInteger('featured')->default('0')->nullable();
-            $table->tinyInteger('status')->default('0');
+            $table->tinyInteger('status')->default('0')->comment('0=hiện, 1=ẩn');
             $table->integer('count')->default('0')->nullable();
             $table->timestamps();
         });

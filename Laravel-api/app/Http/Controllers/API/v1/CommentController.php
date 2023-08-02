@@ -15,7 +15,7 @@ class CommentController extends Controller
     {
         $comments = Comment::all();
         return response()->json([
-            'status' => 200,
+            'status' => Response::HTTP_OK,
             'comments' => $comments
         ]);
     }
@@ -29,13 +29,16 @@ class CommentController extends Controller
             ],
             [
                 'required'  => 'Bạn phải viết bình luận!',
+            ],
+            [
+                'comment' => 'Bình luận'
             ]
         );
         if ($validator->fails()) {
             return response()->json([
-                'status' => 422,
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY,
                 'errors' => $validator->messages(),
-            ]);
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         if (auth('sanctum')->check()) {
             $product = Product::where('slug', $slug)->where('status', '0')->first();
@@ -48,20 +51,20 @@ class CommentController extends Controller
                     'slug' => $request->slug,
                 ]);
                 return response()->json([
-                    'status' => 200,
+                    'status' => Response::HTTP_OK,
                     'message' => 'Bình luận thành công.'
                 ]);
             } else {
                 return response()->json([
-                    'status' => 404,
+                    'status' => Response::HTTP_NOT_FOUND,
                     'message' => 'Không có thú cưng này!'
-                ]);
+                ], Response::HTTP_NOT_FOUND);
             }
         } else {
             return response()->json([
-                'status' => 401,
+                'status' => Response::HTTP_UNAUTHORIZED,
                 'message' => 'Bạn phải đăng nhập!',
-            ]);
+            ], Response::HTTP_UNAUTHORIZED);
         }
     }
     // người dùng xóa comment của chính họ
@@ -71,14 +74,14 @@ class CommentController extends Controller
         if ($comment) {
             $comment->delete();
             return response()->json([
-                'status' => Response::HTTP_ACCEPTED,
+                'status' => Response::HTTP_OK,
                 'message' => 'Đã xóa bình luận.'
             ]);
         } else {
             return response()->json([
-                'status' => Response::HTTP_NO_CONTENT,
+                'status' => Response::HTTP_NOT_FOUND,
                 'message' => 'Không tìm thấy id của bình luận!'
-            ]);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
     // admin xóa
@@ -88,14 +91,14 @@ class CommentController extends Controller
         if ($comment) {
             $comment->delete();
             return response()->json([
-                'status' => Response::HTTP_ACCEPTED,
+                'status' => Response::HTTP_OK,
                 'message' => 'Đã xóa bình luận.'
             ]);
         } else {
             return response()->json([
-                'status' => Response::HTTP_NO_CONTENT,
+                'status' => Response::HTTP_NOT_FOUND,
                 'message' => 'Không tìm thấy id của bình luận!'
-            ]);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
 }

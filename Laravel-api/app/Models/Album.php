@@ -18,7 +18,7 @@ class Album extends Model
         'emotion',
         'image_pet',
     ];
-    protected $with = ['category'];
+    protected $with = ['category', 'user'];
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');

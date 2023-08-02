@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CartController extends Controller
 {
@@ -19,9 +20,9 @@ class CartController extends Controller
             if ($productCheck) {
                 if (Cart::where('product_id', $product_id)->where('user_id', $user_id)->exists()) {
                     return response()->json([
-                        'status' => 409,
+                        'status' => Response::HTTP_CONFLICT,
                         'message' => $productCheck->name . ' đã được thêm vào giỏ hàng!',
-                    ]);
+                    ], Response::HTTP_CONFLICT);
                 } else {
                     $cartitem = new Cart;
                     $cartitem->user_id = $user_id;
@@ -29,21 +30,23 @@ class CartController extends Controller
                     $cartitem->product_qty = $product_qty;
                     $cartitem->save();
                     return response()->json([
-                        'status' => 201,
+                        'status' => Response::HTTP_CREATED,
                         'message' => 'Đã thêm vào giỏ hàng.',
-                    ]);
+                    ], Response::HTTP_CREATED);
                 }
             } else {
                 return response()->json([
-                    'status' => 404,
+                    'status' =>
+                    Response::HTTP_NOT_FOUND,
                     'message' => 'Không tìm thấy thú cưng này!',
-                ]);
+                ], Response::HTTP_NOT_FOUND);
             }
         } else {
             return response()->json([
-                'status' => 401,
+                'status' =>
+                Response::HTTP_UNAUTHORIZED,
                 'message' => 'Đăng nhập để thêm vào giỏ hàng!',
-            ]);
+            ], Response::HTTP_UNAUTHORIZED);
         }
     }
     public function viewcart()
@@ -52,14 +55,15 @@ class CartController extends Controller
             $user_id = auth('sanctum')->user()->id;
             $cartitems = Cart::where('user_id', $user_id)->get();
             return response()->json([
-                'status' => 200,
+                'status' =>
+                Response::HTTP_OK,
                 'cart' => $cartitems,
             ]);
         } else {
             return response()->json([
-                'status' => 401,
+                'status' => Response::HTTP_UNAUTHORIZED,
                 'message' => 'Đăng nhập để xem giỏ hàng!',
-            ]);
+            ], Response::HTTP_UNAUTHORIZED);
         }
     }
     public function updatequantity($cart_id, $scope)
@@ -74,14 +78,14 @@ class CartController extends Controller
             }
             $cartitem->update();
             return response()->json([
-                'status' => 200,
+                'status' => Response::HTTP_OK,
                 'message' => 'Đã cập nhật số lượng.',
             ]);
         } else {
             return response()->json([
-                'status' => 401,
+                'status' => Response::HTTP_UNAUTHORIZED,
                 'message' => 'Đăng nhập để tiếp tục!',
-            ]);
+            ], Response::HTTP_UNAUTHORIZED);
         }
     }
     public function deleteCartitem($cart_id)
@@ -92,20 +96,21 @@ class CartController extends Controller
             if ($cartitem) {
                 $cartitem->delete();
                 return response()->json([
-                    'status' => 200,
+                    'status' => Response::HTTP_OK,
                     'message' => 'Xóa thành công.',
                 ]);
             } else {
                 return response()->json([
-                    'status' => 404,
+                    'status' =>
+                    Response::HTTP_NOT_FOUND,
                     'message' => 'Không tìm thấy mục trong giỏ hàng!',
-                ]);
+                ], Response::HTTP_NOT_FOUND);
             }
         } else {
             return response()->json([
-                'status' => 401,
+                'status' => Response::HTTP_UNAUTHORIZED,
                 'message' => 'Đăng nhập để tiếp tục!',
-            ]);
+            ], Response::HTTP_UNAUTHORIZED);
         }
     }
 }

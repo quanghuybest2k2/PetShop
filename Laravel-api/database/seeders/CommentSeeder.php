@@ -40,6 +40,11 @@ class CommentSeeder extends Seeder
                     'user_id' => 2,
                     'comment' => 'con chó gì nhìn giống con sư tử',
                 ],
+                [
+                    'product_id' => 5,
+                    'user_id' => 2,
+                    'comment' => 'Cậu vàng bạn Lão Hạc đây sao',
+                ],
             ]
         );
     }

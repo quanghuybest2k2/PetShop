@@ -2,32 +2,33 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Http\Controllers\Controller;
-use App\Mail\NewProductNotification;
-use App\Models\Category;
+use App\Models\User;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Subscriber;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Mail\NewProductNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Symfony\Component\HttpFoundation\Response;
 
 class FrontendController extends Controller
 {
     public function index()
     {
         //lấy tát cả loại thú cưng
-        $category = Category::all();
+        $category = Category::where('status', '0')->get();
         // lấy tất cả thú cưng
-        $products = Product::all();
+        $products = Product::where('status', '0')->get();
         // sản phẩm phổ biến
         $popularProducts = Product::orderByDesc('count')->take(4)->get();
         // Sản phẩm nổi bật
         $featuredProducts = Product::where('featured', '1')->take(4)->get();
 
         return response()->json([
-            'status' => 200,
+            'status' => Response::HTTP_OK,
             'products' => $products,
             'popularProducts' => $popularProducts,
             'category' => $category,
@@ -38,7 +39,7 @@ class FrontendController extends Controller
     {
         $category = Category::where('status', '0')->get();
         return response()->json([
-            'status' => 200,
+            'status' => Response::HTTP_OK,
             'category' => $category,
         ]);
     }
@@ -51,7 +52,7 @@ class FrontendController extends Controller
             // $product = Product::where('category_id', $category->id)->where('status', '0')->get();
             if ($product) {
                 return response()->json([
-                    'status' => 200,
+                    'status' => Response::HTTP_OK,
                     'product_data' => [
                         'product' => $product,
                         'category' => $category,
@@ -65,15 +66,15 @@ class FrontendController extends Controller
                 ]);
             } else {
                 return response()->json([
-                    'status' => 400,
+                    'status' => Response::HTTP_BAD_REQUEST,
                     'message' => 'Không tồn tại thú cưng này!',
-                ]);
+                ], Response::HTTP_BAD_REQUEST);
             }
         } else {
             return response()->json([
-                'status' => 404,
+                'status' => Response::HTTP_NOT_FOUND,
                 'message' => 'Không có danh mục này!',
-            ]);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
     public function viewproduct($category_slug, $product_slug)
@@ -83,33 +84,23 @@ class FrontendController extends Controller
             $product = Product::where('category_id', $category->id)->where('slug', $product_slug)->where('status', '0')->first();
             if ($product) {
                 $product->increment('count', 1); // count+1 nếu tải trang
-                $comments = $product->comments;
-                $commentData = $comments->map(function ($comment) {
-                    return [
-                        'id' => $comment->id,
-                        'user_id' => $comment->user_id,
-                        'username' => $comment->user->name, // Truy cập thông tin người dùng
-                        'comment' => $comment->comment,
-                        'created_at' => $comment->created_at,
-                    ];
-                });
+                $comments = $product->comments; // quan hệ trong model Product
+
                 return response()->json([
-                    'status' => 200,
+                    'status' => Response::HTTP_OK,
                     'product' => $product,
-                    'commentData' => $commentData,
-                    // 'updateCount' => $updateCount,
                 ]);
             } else {
                 return response()->json([
-                    'status' => 400,
+                    'status' => Response::HTTP_BAD_REQUEST,
                     'message' => 'Không tồn tại sản phẩm này!',
-                ]);
+                ], Response::HTTP_BAD_REQUEST);
             }
         } else {
             return response()->json([
-                'status' => 404,
+                'status' => Response::HTTP_NOT_FOUND,
                 'message' => 'Không có danh mục này!',
-            ]);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
 }

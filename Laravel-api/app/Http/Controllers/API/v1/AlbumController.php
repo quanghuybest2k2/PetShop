@@ -8,23 +8,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Cache;
+use Symfony\Component\HttpFoundation\Response;
 
 class AlbumController extends Controller
 {
     public function index()
     {
         $pets = Album::all();
-        $pets->map(function ($user) {
-            return [
-                'user_id' => $user->id,
-                'user_email' => $user->user->email,
-                'username' => $user->user->name, // album->user()
-            ];
-        });
         return response()->json([
-            'status' => 200,
+            'status' => Response::HTTP_OK,
             'pets' => $pets,
-        ]);
+        ], Response::HTTP_OK);
     }
 
     // public function index()
@@ -56,19 +50,27 @@ class AlbumController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'category_id' => 'required|max:191',
-                    'emotion' => 'required|max:191',
-                    'image_pet' => 'required|image|mimes:jpeg,png,jpg|max:15360',
+                    'category_id' => 'required|max:255',
+                    'emotion' => 'required|max:255',
+                    'image_pet' => 'required|image|mimes:jpeg,png,jpg|max:10240',
                 ],
                 [
-                    'required' => 'Bạn phải điền :attribute'
+                    'required' => 'Bạn phải điền :attribute',
+                    'max' => ':attribute không được vượt quá :max ký tự',
+                    'mimes' => ':attribute chỉ chấp nhận jpeg,png,jpg',
+                    'image' => ':attribute chỉ phải là hình ảnh',
+                ],
+                [
+                    'category_id' => 'Category Id',
+                    'emotion' => 'Cảm xúc',
+                    'image_pet' => 'Ảnh thú cưng',
                 ]
             );
             if ($validator->fails()) {
                 return response()->json([
-                    'status' => 422,
+                    'status' => Response::HTTP_UNPROCESSABLE_ENTITY,
                     'errors' => $validator->messages(),
-                ]);
+                ], Response::HTTP_UNPROCESSABLE_ENTITY);
             } else {
                 $user_id = auth('sanctum')->user()->id;
                 $pet = new Album;
@@ -84,15 +86,15 @@ class AlbumController extends Controller
                 }
                 $pet->save();
                 return response()->json([
-                    'status' => 200,
+                    'status' => Response::HTTP_OK,
                     'message' => 'Thêm thú cưng thành công.',
                 ]);
             }
         } else {
             return response()->json([
-                'status' => 401,
+                'status' => Response::HTTP_UNAUTHORIZED,
                 'message' => 'Bạn phải đăng nhập!',
-            ]);
+            ], Response::HTTP_UNAUTHORIZED);
         }
     }
 }

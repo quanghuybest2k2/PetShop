@@ -8,6 +8,7 @@ use App\Models\Order;
 use Stripe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class CheckoutController extends Controller
 {
@@ -17,12 +18,12 @@ class CheckoutController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'address' => 'required|max:191',
-                    'nameCard' => 'required|max:191',
-                    'cardNumber' => 'required|max:191',
-                    'cvc' => 'required|max:191',
-                    'month' => 'required|max:191',
-                    'year' => 'required|max:191',
+                    'address' => 'required|max:255',
+                    'nameCard' => 'required|max:255',
+                    'cardNumber' => 'required|max:255',
+                    'cvc' => 'required|max:255',
+                    'month' => 'required|max:255',
+                    'year' => 'required|max:255',
                 ],
                 [
                     // 'nameCard.required' => 'Bạn phải điền Tên',
@@ -32,9 +33,9 @@ class CheckoutController extends Controller
             );
             if ($validator->fails()) {
                 return response()->json([
-                    'status' => 422,
+                    'status' => Response::HTTP_UNPROCESSABLE_ENTITY,
                     'errors' => $validator->messages(),
-                ]);
+                ], Response::HTTP_UNPROCESSABLE_ENTITY);
             } else {
                 Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
                 Stripe\Charge::create([
@@ -75,15 +76,15 @@ class CheckoutController extends Controller
                 $order->orderitems()->createMany($orderitems);
                 Cart::destroy($cart);
                 return response()->json([
-                    'status' => 200,
+                    'status' => Response::HTTP_OK,
                     'message' => 'Đặt hàng thành công.',
                 ]);
             }
         } else {
             return response()->json([
-                'status' => 401,
+                'status' => Response::HTTP_UNAUTHORIZED,
                 'message' => 'Đăng nhập để tiếp tục!',
-            ]);
+            ], Response::HTTP_UNAUTHORIZED);
         }
     }
 }

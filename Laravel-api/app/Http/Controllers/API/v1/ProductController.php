@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Http\Controllers\Controller;
-use App\Models\Product;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\NewProductNotification;
-use App\Models\Subscriber;
 use Exception;
+use App\Models\Product;
+use App\Models\Subscriber;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Mail\NewProductNotification;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
     // xem thú cưng
     public function index()
     {
-        $products = Product::all();
+        $products = Product::where('status', '0');
         return response()->json([
-            'status' => 200,
+            'status' => Response::HTTP_OK,
             'products' => $products
         ]);
     }
@@ -30,24 +31,37 @@ class ProductController extends Controller
             $request->all(),
             [
                 'category_id' => 'required|max:191',
-                'slug' => 'required|max:191|unique:products,slug',
-                'name' => 'required|max:191',
+                'slug' => 'required|max:255|unique:products,slug',
+                'name' => 'required|max:255',
                 'brand' => 'required|max:20',
                 'selling_price' => 'required|max:20',
                 'original_price' => 'required|max:20',
                 'qty' => 'required|max:4',
-                'image' => 'required|image|mimes:jpeg,png,jpg|max:15360',
+                'image' => 'required|image|mimes:jpeg,png,jpg|max:10240',
             ],
             [
                 'required'  => 'Bạn phải điền :attribute',
-                'unique'  => 'Slug đã tồn tại!',
+                'unique'  => ':attribute đã tồn tại!',
+                'max'  => ':attribute không vượt quá :max ký tự',
+                'image'  => 'Phải là hình ảnh',
+                'mimes'  => ':attribute không đúng định dạng',
+            ],
+            [
+                'category_id' => 'Category Id',
+                'slug' => 'Tên định danh',
+                'name' => 'Tên thú cưng',
+                'brand' => 'Thương hiệu',
+                'selling_price' => 'Giá bán',
+                'original_price' => 'Giá gốc',
+                'qty' => 'Số lượng',
+                'image' => 'Hình ảnh',
             ]
         );
         if ($validator->fails()) {
             return response()->json([
-                'status' => 422,
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY,
                 'errors' => $validator->messages(),
-            ]);
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         } else {
             $product = new Product;
             $product->category_id = $request->input('category_id');
@@ -79,7 +93,7 @@ class ProductController extends Controller
                     ->send(new NewProductNotification($product));
             }
             return response()->json([
-                'status' => 200,
+                'status' => Response::HTTP_OK,
                 'message' => 'Thêm thú cưng thành công.',
             ]);
         }
@@ -90,14 +104,14 @@ class ProductController extends Controller
         $product = Product::find($id);
         if ($product) {
             return response()->json([
-                'status' => 200,
+                'status' => Response::HTTP_OK,
                 'product' => $product,
             ]);
         } else {
             return response()->json([
-                'status' => 404,
+                'status' => Response::HTTP_NOT_FOUND,
                 'message' => 'Không tìm thấy thú cưng này!',
-            ]);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
     // sửa thú cưng
@@ -106,9 +120,9 @@ class ProductController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'category_id' => 'required|max:191',
-                'slug' => 'required|max:191',
-                'name' => 'required|max:191',
+                'category_id' => 'required|max:255',
+                'slug' => 'required|max:255',
+                'name' => 'required|max:255',
                 'brand' => 'required|max:20',
                 'selling_price' => 'required|max:20',
                 'original_price' => 'required|max:20',
@@ -116,13 +130,14 @@ class ProductController extends Controller
             ],
             [
                 'required'  => 'Bạn phải điền :attribute',
+                'max'  => ':attribute không vượt quá :max ký tự',
             ]
         );
         if ($validator->fails()) {
             return response()->json([
-                'status' => 422,
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY,
                 'errors' => $validator->messages(),
-            ]);
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         } else {
             $product = Product::find($id);
             if ($product) {
@@ -151,14 +166,14 @@ class ProductController extends Controller
                 $product->status = $request->input('status');
                 $product->update();
                 return response()->json([
-                    'status' => 200,
+                    'status' => Response::HTTP_OK,
                     'message' => 'Cập nhật thú cưng thành công.',
                 ]);
             } else {
                 return response()->json([
-                    'status' => 404,
+                    'status' => Response::HTTP_NOT_FOUND,
                     'message' => 'Không tìm thấy thú cưng này!',
-                ]);
+                ], Response::HTTP_NOT_FOUND);
             }
         }
     }
@@ -173,14 +188,14 @@ class ProductController extends Controller
             }
             $product->delete();
             return response()->json([
-                'status' => 200,
+                'status' => Response::HTTP_OK,
                 'message' => 'Đã xóa thú cưng.'
             ]);
         } else {
             return response()->json([
-                'status' => 404,
+                'status' => Response::HTTP_NOT_FOUND,
                 'message' => 'Không tìm thấy id của thú cưng!'
-            ]);
+            ],  Response::HTTP_NOT_FOUND);
         }
     }
 }
