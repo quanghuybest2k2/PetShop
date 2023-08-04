@@ -52,11 +52,15 @@ const RenderHome = () => {
       return (
         <div className="col-12 col-sm-6 col-md-6 col-lg-3 mt-4" key={idx}>
           <div className="card h-100 w-100  ">
-            <img
-              src={`${config.BASE_URL}/${item.image}`}
-              className="card-img-top"
-              alt={item.name}
-            />
+            <div className="ratio ratio-1x1">
+              {/* Tạo tỷ lệ khung 1:1 cho ảnh bằng nhau */}
+              <img
+                src={`${config.BASE_URL}/${item.image}`}
+                className="card-img-top"
+                alt={item.name}
+                style={{ objectFit: "cover" }} // Đảm bảo không bị vỡ ảnh
+              />
+            </div>
             <div className="card-body d-flex flex-column justify-content-between ">
               <Link to={`collections/${item.category.slug}/${item.slug}`}>
                 <h5 class="card-title">{item.name}</h5>
@@ -65,7 +69,7 @@ const RenderHome = () => {
               <h6 className="text-danger text-decoration-line-through">
                 {numeral(item.original_price).format("0,0")}đ
               </h6>
-              <div className="bottom d-flex justify-content-between">
+              <div className="mt-auto">
                 <h4>{numeral(item.selling_price).format("0,0")}đ</h4>
                 <Link to={`collections/${item.category.slug}/${item.slug}`}>
                   <button type="button" className="custom-btn transitions">
@@ -100,31 +104,40 @@ const RenderHome = () => {
     // pho bien
     showPopularProducts = popularProducts.map((item, idx) => {
       return (
-        <li className="col-12 col-sm-12 col-md-6 col-lg-6 " key={idx}>
-          <div className="category-card">
+        <div className="col-12 col-sm-12 col-md-3 col-lg-3 mb-3" key={idx}>
+          <div className="card category-card d-flex flex-column justify-content-center align-items-center">
             <figure
               className="card-banner img-holder"
-              style={{ width: 330, height: 300 }}
+              style={{
+                width: 250,
+                height: 250,
+                border: "2px solid #ccc",
+                borderRadius: "8px",
+                overflow: "hidden",
+              }}
             >
-              <img
-                src={`${config.BASE_URL}/${item.image}`}
-                width="330"
-                height="300"
-                loading="lazy"
-                alt={item.name}
-                className="img-cover"
-              />
+              <div className="ratio ratio-1x1 d-flex justify-content-center align-items-center">
+                <img
+                  src={`${config.BASE_URL}/${item.image}`}
+                  className="card-img-top"
+                  alt={item.name}
+                  style={{
+                    objectFit: "cover",
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                  }}
+                />
+              </div>
             </figure>
-            <h3 className="h3">
-              <Link
-                to={`collections/${item.category.slug}/${item.slug}`}
-                className="card-title"
-              >
-                {item.name}
-              </Link>
-            </h3>
+            <div className="card-body text-center">
+              <h3 className="h5 card-title">
+                <Link to={`collections/${item.category.slug}/${item.slug}`}>
+                  {item.name}
+                </Link>
+              </h3>
+            </div>
           </div>
-        </li>
+        </div>
       );
     });
     // noi bat
@@ -132,11 +145,14 @@ const RenderHome = () => {
       return (
         <div className="col-12 col-sm-6 col-md-6 col-lg-3 mt-4" key={idx}>
           <div className="card h-100 w-100  ">
-            <img
-              src={`${config.BASE_URL}/${item.image}`}
-              className="card-img-top"
-              alt={item.name}
-            />
+            <div className="ratio ratio-1x1">
+              <img
+                src={`${config.BASE_URL}/${item.image}`}
+                className="card-img-top"
+                alt={item.name}
+                style={{ objectFit: "cover" }}
+              />
+            </div>
             <div className="card-body d-flex flex-column justify-content-between ">
               <Link to={`collections/${item.category.slug}/${item.slug}`}>
                 <h5 className="card-title">{item.name}</h5>
@@ -240,6 +256,10 @@ const RenderHome = () => {
 };
 
 function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="home">
       <section className="hero-section" id="home">

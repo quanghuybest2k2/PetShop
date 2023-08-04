@@ -14,7 +14,7 @@ class CategoryController extends Controller
     // view category
     public function index()
     {
-        $category = Category::where('status', '0');
+        $category = Category::where('status', '0')->get();
         return response()->json([
             'status' => Response::HTTP_OK,
             'category' => $category,

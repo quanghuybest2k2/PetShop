@@ -31,10 +31,10 @@ function ViewComment() {
     thisClicked.innerText = "Đã xóa";
 
     axios.delete(`deleteComment/${id}`).then((res) => {
-      if (res.data.status === 202) {
+      if (res.data.status === 200) {
         swal("Success", res.data.message, "success");
         thisClicked.closest("tr").remove();
-      } else if (res.data.status === 204) {
+      } else if (res.data.status === 404) {
         swal("Success", res.data.message, "success");
         thisClicked.innerText = "Xóa";
       }

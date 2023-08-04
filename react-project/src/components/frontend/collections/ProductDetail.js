@@ -34,7 +34,7 @@ function ProductDetail(props) {
         if (isMounted) {
           if (res.data.status === 200) {
             setProduct(res.data.product);
-            setComments(res.data.commentData); // lay comments
+            setComments(res.data.product.comments); // lay comments
             setLoading(false);
           } else if (res.data.status === 404) {
             history.push("/collections");
@@ -105,12 +105,12 @@ function ProductDetail(props) {
     e.preventDefault();
 
     axios.delete(`delete-comment/${id}`).then((res) => {
-      if (res.data.status === 202) {
+      if (res.data.status === 200) {
         swal("Thành công", res.data.message, "success");
         setError([]);
         // Reload the page
         window.location.reload();
-      } else if (res.data.status === 204) {
+      } else if (res.data.status === 404) {
         swal("Lỗi rồi bạn ơi!", res.data.message, "warning");
         setError(res.data.errors);
       }
@@ -191,16 +191,14 @@ function ProductDetail(props) {
               <h4>
                 {product.name}
                 <span className="float-end badge btn-sm btn-danger badge-pil">
-                  {" "}
-                  {product.brand}{" "}
+                  {product.brand}
                 </span>
               </h4>
               <p> {product.description} </p>
               <h4 className="mb-1">
                 Giá bán: {numeral(product.selling_price).format("0,0")}đ
                 <s className="ms-2 text-danger">
-                  {" "}
-                  {numeral(product.original_price).format("0,0")}đ{" "}
+                  {numeral(product.original_price).format("0,0")}đ
                 </s>
               </h4>
               <h4>
@@ -267,9 +265,9 @@ function ProductDetail(props) {
                     <div className="detail-area">
                       <h6 className="user-name mb-1">
                         {/* Đoàn Quang Huy */}
-                        {comment.username}
+                        {comment.user.name}
                         <small className="ms-3 text-primary">
-                          Vào lúc:{" "}
+                          Vào lúc:
                           {format(
                             new Date(comment.created_at),
                             "HH:mm:ss dd/MM/yyyy"

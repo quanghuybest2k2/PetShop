@@ -18,7 +18,7 @@ class ProductController extends Controller
     // xem thú cưng
     public function index()
     {
-        $products = Product::where('status', '0');
+        $products = Product::where('status', '0')->get();
         return response()->json([
             'status' => Response::HTTP_OK,
             'products' => $products

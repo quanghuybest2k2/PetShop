@@ -93,10 +93,7 @@ function Login() {
               </span>
             </div>
             <div className="d-grid col-6 mx-auto">
-              <button
-                type="submit"
-                className="btn btn-outline-primary btn-lg bg-primary-subtle"
-              >
+              <button type="submit" className="btn btn-primary btn-lg">
                 Đăng nhập
               </button>
             </div>

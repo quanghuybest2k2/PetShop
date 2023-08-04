@@ -79,11 +79,11 @@ const Navbar = () => {
             <li>
               <hr className="dropdown-divider" />
             </li>
-            <li>
+            <li className="text-center">
               <button
                 type="button"
                 onClick={logoutSubmit}
-                className="nav-link btn btn-danger btn-sm text-white"
+                className="btn btn-danger text-white"
               >
                 Đăng xuất
               </button>
