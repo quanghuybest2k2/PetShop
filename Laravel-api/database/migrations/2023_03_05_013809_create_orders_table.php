@@ -18,12 +18,7 @@ return new class extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade');
             $table->string('amount');
-            $table->string('address');
-            $table->string('nameCard');
-            $table->string('cardNumber');
-            $table->string('cvc');
-            $table->string('month');
-            $table->string('year');
+            $table->string('address')->nullable();
             $table->string('payment_mode');
             $table->string('tracking_no');
             $table->timestamps();

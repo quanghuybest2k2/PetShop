@@ -11,25 +11,28 @@ function Cart() {
   const [cart, setCart] = useState([]);
   var totalCartPrice = 0;
 
-  if (!localStorage.getItem("auth_token")) {
-    history.push("/");
-    swal("Warning", "Bạn phải đăng nhập!", "error");
-  }
-
   useEffect(() => {
     let isMounted = true;
 
-    axios.get(`cart`).then((res) => {
-      if (isMounted) {
-        if (res.data.status === 200) {
-          setCart(res.data.cart);
-          setLoading(false);
-        } else if (res.data.status === 401) {
-          history.push("/");
-          swal("Warning", res.data.message, "error");
+    axios
+      .get(`cart`)
+      .then((res) => {
+        if (isMounted) {
+          if (res.data.status === 200) {
+            setCart(res.data.cart);
+            setLoading(false);
+          } else if (res.data.status === 401) {
+            history.push("/");
+            swal("Warning", res.data.message, "error");
+          }
         }
-      }
-    });
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          history.push("/");
+          swal("Error", error.response.data.message, "error");
+        }
+      });
 
     return () => {
       isMounted = false;

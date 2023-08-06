@@ -12,12 +12,11 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
+        'user_id',
+        'amount',
         'address',
-        'nameCard',
-        'cardNumber',
-        'cvc',
-        'month',
-        'year',
+        'payment_mode',
+        'tracking_no',
     ];
     public function orderitems()
     {

@@ -100,6 +100,26 @@ function Checkout() {
           swal("Lỗi rồi", error.message, "error");
         }
         break;
+      case "vnpay":
+        try {
+          const response = await axios.post("checkout", {
+            total: totalCartPrice,
+            bankcode: "NCB",
+          });
+          if (response.data.code === "00") {
+            window.location.href = response.data.data;
+          } else {
+            swal("Error", "Thanh toán thất bại!", "error");
+          }
+        } catch (error) {
+          console.log(error);
+          swal(
+            "Error",
+            "Đã xảy ra lỗi trong quá trình khởi tạo thanh toán VnPay!",
+            "error"
+          );
+        }
+        break;
       default:
         break;
     }
@@ -218,6 +238,13 @@ function Checkout() {
                         onClick={(e) => submitOrder(e, "stripe")}
                       >
                         Thanh toán Stripe
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-warning mx-1"
+                        onClick={(e) => submitOrder(e, "vnpay")}
+                      >
+                        Thanh toán VnPay
                       </button>
                     </div>
                   </div>

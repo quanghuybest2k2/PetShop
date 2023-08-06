@@ -48,7 +48,8 @@ Route::prefix('v1')->group(function () {
     // checkout
     Route::controller(CheckoutController::class)->group(function () {
         Route::post('place-order', 'placeorder');
-        Route::post('validate-order', 'validateOrder');
+        Route::post('checkout', 'VnPay_payment');
+        Route::post('save-payment', 'savePayment');
     });
     // Comment
     Route::controller(CommentController::class)->group(function () {
