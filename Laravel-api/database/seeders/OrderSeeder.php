@@ -22,6 +22,13 @@ class OrderSeeder extends Seeder
                     'payment_mode' => 'Stripe',
                     'tracking_no' => 'petshop1433',
                 ],
+                [
+                    'user_id' => 2,
+                    'amount' => '1200000',
+                    'address' => '',
+                    'payment_mode' => 'VnPay',
+                    'tracking_no' => 'petshop1532',
+                ],
             ]
         );
     }
