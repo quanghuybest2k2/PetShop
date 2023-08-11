@@ -24,7 +24,7 @@ class CommentTest extends TestCase
         $product = Product::factory()->create(['status' => '0']);
         Sanctum::actingAs($user);
 
-        $response = $this->postJson('api/v2/store-comment/' . $product->slug, [
+        $response = $this->postJson('api/v1/store-comment/' . $product->slug, [
             'comment' => 'Con chó này dễ thương ghê.',
         ]);
 
@@ -47,7 +47,7 @@ class CommentTest extends TestCase
     // Chưa viết bình luận
     public function testStoreMissingComment()
     {
-        $response = $this->post('api/v2/store-comment/product-slug', []);
+        $response = $this->post('api/v1/store-comment/product-slug', []);
 
         $response->assertStatus(422)
             ->assertJson([
@@ -63,7 +63,7 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
         Sanctum::actingAs($user);
 
-        $response = $this->actingAs($user, 'sanctum')->post('api/v2/store-comment/adadadada', [
+        $response = $this->actingAs($user, 'sanctum')->post('api/v1/store-comment/adadadada', [
             'comment' => 'Con chim này xinh quá.'
         ]);
 
@@ -76,7 +76,7 @@ class CommentTest extends TestCase
     // chưa đăng nhập
     public function testStoreUnauthenticated()
     {
-        $response = $this->post('api/v2/store-comment/product-slug', [
+        $response = $this->post('api/v1/store-comment/product-slug', [
             'comment' => 'Con chó này dễ thương ghê.',
         ]);
 

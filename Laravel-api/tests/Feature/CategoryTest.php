@@ -22,7 +22,7 @@ class CategoryTest extends TestCase
     // Xem danh mục không cần authentication
     public function testGetCategoy()
     {
-        $response = $this->get('api/v2/getCategory');
+        $response = $this->get('api/v1/getCategory');
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'status',
@@ -31,7 +31,7 @@ class CategoryTest extends TestCase
     }
     public function testGetAllCategory()
     {
-        $response = $this->get('api/v2/get-all-category');
+        $response = $this->get('api/v1/get-all-category');
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'status',
@@ -57,7 +57,7 @@ class CategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->post('api/v2/store-category', $request);
+        ])->post('api/v1/store-category', $request);
 
         $response->assertStatus(200);
         $response->assertJson([
@@ -75,7 +75,7 @@ class CategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('api/v2/edit-category/' . $id);
+        ])->get('api/v1/edit-category/' . $id);
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -102,7 +102,7 @@ class CategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->put('api/v2/update-category/' . $category->id, $updatedData);
+        ])->put('api/v1/update-category/' . $category->id, $updatedData);
 
         $response->assertStatus(200);
         $response->assertJson([
@@ -121,7 +121,7 @@ class CategoryTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->delete('api/v2/delete-category/' . $id);
+        ])->delete('api/v1/delete-category/' . $id);
 
         $response->assertStatus(200);
         $response->assertJson([

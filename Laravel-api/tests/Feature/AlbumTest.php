@@ -16,7 +16,7 @@ class AlbumTest extends TestCase
     public function test_GetAllPet()
     {
         // Gửi request GET đến endpoint của API
-        $response = $this->get('api/v2/getAlbumPet');
+        $response = $this->get('api/v1/getAlbumPet');
 
         // Kiểm tra status code của response
         $response->assertStatus(200);
@@ -38,7 +38,7 @@ class AlbumTest extends TestCase
 
     public function testStoreWithoutAuthentication()
     {
-        $response = $this->postJson('api/v2/store-albumPet', [
+        $response = $this->postJson('api/v1/store-albumPet', [
             'category_id' => 1,
             'emotion' => 'happy',
             'image_pet' => UploadedFile::fake()->image('pet.jpg'),
@@ -69,7 +69,7 @@ class AlbumTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->post('api/v2/store-albumPet', $request);
+        ])->post('api/v1/store-albumPet', $request);
 
         $response->assertStatus(200);
         $response->assertJson([

@@ -25,17 +25,17 @@ class CartTest extends TestCase
         ];
 
         // Test unauthorized
-        $response = $this->postJson('api/v2/add-to-cart', $data);
+        $response = $this->postJson('api/v1/add-to-cart', $data);
         $response->assertUnauthorized();
 
         // Test authenticated
         $response = $this->actingAs($user)
-            ->postJson('api/v2/add-to-cart', $data);
+            ->postJson('api/v1/add-to-cart', $data);
         $response->assertSuccessful();
 
         // Trùng lặp khi thêm
         $response = $this->actingAs($user)
-            ->postJson('api/v2/add-to-cart', $data);
+            ->postJson('api/v1/add-to-cart', $data);
         $response->assertStatus(409);
     }
     public function testViewCart()
@@ -51,12 +51,12 @@ class CartTest extends TestCase
         );
 
         // Test unauthorized
-        $response = $this->getJson('api/v2/cart');
+        $response = $this->getJson('api/v1/cart');
         $response->assertUnauthorized();
 
         // Test authenticated
         $response = $this->actingAs($user)
-            ->getJson('api/v2/cart');
+            ->getJson('api/v1/cart');
         $response->assertSuccessful();
         $response->assertJsonStructure([
             'status',
@@ -88,7 +88,7 @@ class CartTest extends TestCase
         // Gọi API xóa mục trong giỏ hàng
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->json('DELETE', 'api/v2/delete-cartitem/' . $cartItem->id);
+        ])->json('DELETE', 'api/v1/delete-cartitem/' . $cartItem->id);
 
         // Kiểm tra xem mục trong giỏ hàng đã được xóa thành công
         $response->assertStatus(200);
