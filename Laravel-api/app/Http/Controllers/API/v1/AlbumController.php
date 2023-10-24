@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Http\Controllers\Controller;
 use App\Models\Album;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Cache;
-use Symfony\Component\HttpFoundation\Response;
+use App\Traits\ResponseTrait;
 use OpenApi\Annotations as OA;
 use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @OA\Info(
@@ -29,6 +30,7 @@ use Illuminate\Http\JsonResponse;
 
 class AlbumController extends Controller
 {
+    use ResponseTrait;
     /**
      * @OA\GET(
      *     path="/api/v1/getAlbumPet",
@@ -44,11 +46,16 @@ class AlbumController extends Controller
      */
     public function index(): JsonResponse
     {
-        $pets = Album::all();
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'pets' => $pets,
-        ], Response::HTTP_OK);
+        try {
+            $pets = Album::all();
+            return response()->json([
+                'status' => Response::HTTP_OK,
+                'pets' => $pets,
+            ], Response::HTTP_OK);
+            // return $this->responseSuccess($pets, "Lấy thú cưng thành công!");
+        } catch (\Exception $e) {
+            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     // public function index()

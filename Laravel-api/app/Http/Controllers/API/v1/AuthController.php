@@ -9,10 +9,33 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
+use App\Traits\ResponseTrait;
+use Illuminate\Http\JsonResponse;
+
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    use ResponseTrait;
+
+    /**
+     * @OA\POST(
+     *     path="/api/v1/register",
+     *     tags={"Authentication"},
+     *     summary="Register User",
+     *     description="Register New User",
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="name", type="string", example="Đoàn Quang Huy"),
+     *              @OA\Property(property="email", type="string", example="quanghuybest@gmail.com"),
+     *              @OA\Property(property="password", type="string", example="12345678")
+     *          ),
+     *      ),
+     *      @OA\Response(response=200, description="Register New User Data" ),
+     *      @OA\Response(response=400, description="Bad request")
+     * )
+     */
+    public function register(Request $request): JsonResponse
     {
         $validator = Validator::make(
             $request->all(),
@@ -54,7 +77,24 @@ class AuthController extends Controller
             ]);
         }
     }
-    public function login(Request $request)
+    /**
+     * @OA\POST(
+     *     path="/api/v1/login",
+     *     tags={"Authentication"},
+     *     summary="Login",
+     *     description="Login",
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="email", type="string", example="quanghuybest@gmail.com"),
+     *              @OA\Property(property="password", type="string", example="12345678")
+     *          ),
+     *      ),
+     *      @OA\Response(response=200, description="Login"),
+     *      @OA\Response(response=401, description="UNAUTHORIZED")
+     * )
+     */
+    public function login(Request $request): JsonResponse
     {
         $validator = Validator::make(
             $request->all(),
@@ -101,12 +141,26 @@ class AuthController extends Controller
             }
         }
     }
-    public function logout()
+    /**
+     * @OA\POST(
+     *     path="/api/v1/logout",
+     *     tags={"Authentication"},
+     *     summary="Logout",
+     *     description="Logout",
+     *     @OA\Response(response=200, description="Logout" ),
+     *     @OA\Response(response=400, description="Bad request")
+     * )
+     */
+    public function logout(): JsonResponse
     {
-        auth()->user()->tokens()->delete();
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'message' => 'Đã đăng xuất.',
-        ]);
+        try {
+            auth()->user()->tokens()->delete();
+            return response()->json([
+                'status' => Response::HTTP_OK,
+                'message' => 'Đã đăng xuất.',
+            ]);
+        } catch (\Exception $e) {
+            return $this->responseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

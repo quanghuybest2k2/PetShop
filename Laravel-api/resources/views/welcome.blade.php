@@ -13,6 +13,8 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <link rel="shortcut icon" href="{{ asset('logo.ico') }}" type="image/x-icon">
+
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -67,10 +69,10 @@
                     </div>
                     <p class="text-center">
                         <a href="{{ route('l5-swagger.default.api') }}" class="btn btn-primary">
-                            <i class="fa fa-book"></i> Read API Documentation
+                            <i class="fa fa-book"></i>API Documentation
                         </a>
                         <a href="https://github.com/quanghuybest2k2/PetShop" target="_blank" class="btn btn-info">
-                            <i class="fab fa-github"></i> Read Github
+                            <i class="fab fa-github"></i> Github
                         </a>
                     </p>
                 </div>

@@ -91,6 +91,124 @@
                     }
                 ]
             }
+        },
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register User",
+                "description": "Register New User",
+                "operationId": "d21c56d66102ab4efb4c5fff2dccccac",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Đoàn Quang Huy"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "quanghuybest@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Register New User Data"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login",
+                "description": "Login",
+                "operationId": "60bfb73b3c6616246daf088ce273c4a9",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "quanghuybest@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login"
+                    },
+                    "401": {
+                        "description": "UNAUTHORIZED"
+                    }
+                }
+            }
+        },
+        "/api/v1/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout",
+                "description": "Logout",
+                "operationId": "732887cfcdcaf1a9aba4a68a90ce3975",
+                "responses": {
+                    "200": {
+                        "description": "Logout"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
         }
-    }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearer": {
+                "type": "apiKey",
+                "description": "Bearer token, Ex: Bearer <token>",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "security": [
+        {
+            "bearer": {
+                "type": "apiKey",
+                "description": "Bearer token, Ex: Bearer <token>",
+                "name": "Authorization",
+                "in": "header",
+                "scheme": "bearer"
+            }
+        }
+    ]
 }

@@ -156,6 +156,13 @@ return [
                 /*
                  * Examples of Security schemes
                 */
+                'bearer' => [ // Unique name of security
+                    'type' => 'apiKey', // Valid values are "basic", "apiKey" or "oauth2".
+                    'description' => 'Bearer token, Ex: Bearer <token>',
+                    'name' => 'Authorization', // The name of the header or query parameter to be used.
+                    'in' => 'header', // The location of the API key. Valid values are "query" or "header".
+                    'bearerFormat' => 'JWT',
+                ],
                 /*
                 'api_key_security_example' => [ // Unique name of security
                     'type' => 'apiKey', // The type of the security scheme. Valid values are "basic", "apiKey" or "oauth2".
@@ -197,20 +204,21 @@ return [
                     'name' => 'Authorization', // The name of the header or query parameter to be used.
                     'in' => 'header', // The location of the API key. Valid values are "query" or "header".
                 ],
-                */],
+                */
+            ],
             'security' => [
                 /*
                  * Examples of Securities
                 */
                 [
-                    /*
-                    'oauth2_security_example' => [
-                        'read',
-                        'write'
+                    'bearer' => [ // Unique name of security
+                        'type' => 'apiKey', // Valid values are "basic", "apiKey" or "oauth2".
+                        'description' => 'Bearer token, Ex: Bearer <token>',
+                        'name' => 'Authorization', // The name of the header or query parameter to be used.
+                        'in' => 'header', // The location of the API key. Valid values are "query" or "header".
+                        'scheme' => 'bearer',
                     ],
-
-                    'passport' => []
-                    */],
+                ],
             ],
         ],
 
