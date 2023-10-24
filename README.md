@@ -55,3 +55,7 @@ Xây dựng ứng dụng web quản lý cửa hàng thú cưng
 #### Để chạy dự án
 
 ### `yarn start`
+
+### Docs API
+
+`http://127.0.0.1:8000/api/docs`

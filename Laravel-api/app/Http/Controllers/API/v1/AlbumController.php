@@ -9,10 +9,40 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpFoundation\Response;
+use OpenApi\Annotations as OA;
+use Illuminate\Http\JsonResponse;
+
+/**
+ * @OA\Info(
+ *     description="Petshop API Documentation",
+ *     version="1.0.0",
+ *     title="Petshop API",
+ *     @OA\Contact(
+ *         email="quanghuybest@gmail.com"
+ *     ),
+ *     @OA\License(
+ *         name="GPL2",
+ *         url="https://github.com/quanghuybest2k2"
+ *     )
+ * )
+ */
 
 class AlbumController extends Controller
 {
-    public function index()
+    /**
+     * @OA\GET(
+     *     path="/api/v1/getAlbumPet",
+     *     tags={"Albums"},
+     *     summary="Get Album List",
+     *     description="Get Album List as Array",
+     *     operationId="index",
+     *     security={{"bearer":{}}},
+     *     @OA\Response(response=200,description="Get Album List as Array"),
+     *     @OA\Response(response=400, description="Bad request"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function index(): JsonResponse
     {
         $pets = Album::all();
         return response()->json([
@@ -43,8 +73,29 @@ class AlbumController extends Controller
     //         'pets' => $pets,
     //     ])->header('Cache-Control', "public, max-age=$maxAge");
     // }
-
-    public function store(Request $request)
+    /**
+     * @OA\POST(
+     *     path="/api/v1/store-albumPet",
+     *     tags={"Albums"},
+     *     summary="Create New Album",
+     *     description="Create New Product",
+     *     operationId="store",
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="user_id", type="integer", example=1),
+     *              @OA\Property(property="category_id", type="integer", example=1),
+     *              @OA\Property(property="emotion", type="string", example="wao wao"),
+     *              @OA\Property(property="image_pet", type="string", example=""),
+     *          ),
+     *      ),
+     *      security={{"bearer":{}}},
+     *      @OA\Response(response=200, description="Create New Album" ),
+     *      @OA\Response(response=401, description="UNAUTHORIZED"),
+     *      @OA\Response(response=422, description="Resource UNPROCESSABLE"),
+     * )
+     */
+    public function store(Request $request): JsonResponse
     {
         if (auth('sanctum')->check()) {
             $validator = Validator::make(

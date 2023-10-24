@@ -63,7 +63,7 @@ const RenderHome = () => {
             </div>
             <div className="card-body d-flex flex-column justify-content-between ">
               <Link to={`collections/${item.category.slug}/${item.slug}`}>
-                <h5 class="card-title">{item.name}</h5>
+                <h5 className="card-title">{item.name}</h5>
               </Link>
               <p className="card-text">{item.description}</p>
               <h6 className="text-danger text-decoration-line-through">
@@ -96,7 +96,7 @@ const RenderHome = () => {
           />
           <h3 className="text-uppercase"> {item.name}</h3>
           <Link to={`collections/${item.slug}`}>
-            <button class="text-center custom-btn ">Xem ngay</button>
+            <button className="text-center custom-btn ">Xem ngay</button>
           </Link>
         </div>
       );
@@ -280,7 +280,7 @@ function Home() {
           </div>
         </div>
         <div className="video-wrap">
-          <video autoPlay="autoplay" loop muted class="custom-video">
+          <video autoPlay="autoplay" loop muted className="custom-video">
             <source src={video} type="video/mp4" />
           </video>
         </div>

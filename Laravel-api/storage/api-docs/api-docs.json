@@ -1,0 +1,96 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Petshop API",
+        "description": "Petshop API Documentation",
+        "contact": {
+            "email": "quanghuybest@gmail.com"
+        },
+        "license": {
+            "name": "GPL2",
+            "url": "https://github.com/quanghuybest2k2"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/getAlbumPet": {
+            "get": {
+                "tags": [
+                    "Albums"
+                ],
+                "summary": "Get Album List",
+                "description": "Get Album List as Array",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Album List as Array"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/store-albumPet": {
+            "post": {
+                "tags": [
+                    "Albums"
+                ],
+                "summary": "Create New Album",
+                "description": "Create New Product",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "emotion": {
+                                        "type": "string",
+                                        "example": "wao wao"
+                                    },
+                                    "image_pet": {
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Album"
+                    },
+                    "401": {
+                        "description": "UNAUTHORIZED"
+                    },
+                    "422": {
+                        "description": "Resource UNPROCESSABLE"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    }
+}
