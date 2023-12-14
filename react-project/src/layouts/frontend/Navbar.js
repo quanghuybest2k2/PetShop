@@ -1,12 +1,18 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faCartPlus, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from "react-i18next";
+import { Dropdown } from "react-bootstrap";
 
 import swal from "sweetalert";
 import axios from "axios";
 
 function Navbar() {
+  const [t, i18n] = useTranslation("global");
+
+  const switchLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   const history = useHistory();
   const logoutSubmit = (e) => {
     e.preventDefault();
@@ -27,12 +33,12 @@ function Navbar() {
       <ul className="navbar-nav">
         <li className="nav-item">
           <Link className="nav-link" to="/login">
-            Đăng nhập
+            {t("header.login")}
           </Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="/register">
-            Đăng ký
+            {t("header.login")}
           </Link>
         </li>
       </ul>
@@ -45,7 +51,7 @@ function Navbar() {
           onClick={logoutSubmit}
           className="btn btn-danger btn-sm text-white mt-1"
         >
-          Đăng xuất
+          {t("header.logout")}
         </button>
       </li>
     );
@@ -55,7 +61,7 @@ function Navbar() {
     <nav className="navbar navbar-expand-lg shadow sticky-top bg-light">
       <div className="container">
         <Link className="navbar-brand text-capitalize" to="/">
-          Cửu hàng thú cưng
+          {t("header.petshop")}
         </Link>
 
         <button
@@ -74,37 +80,65 @@ function Navbar() {
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link className="nav-link active" to="/">
-                Trang chủ
+                {t("header.home")}
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/about">
-                Giới thiệu
+                {t("header.about")}
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/album">
-                Album
+                {t("header.album")}
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/collections">
-                Bộ sưu tập
+                {t("header.collection")}
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/contact">
-                {/* <FontAwesomeIcon icon={faEnvelope} className='fa-sm' /> */}
-                Liên hệ
+                {t("header.contact")}
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/cart">
-                {/* <FontAwesomeIcon icon={faCartPlus} className='fa-sm' /> */}
-                Giỏ hàng
+                {t("header.cart")}
               </Link>
             </li>
             {AuthButtons}
+            <li className="nav-item">
+              <Dropdown>
+                <Dropdown.Toggle
+                  variant="link"
+                  id="dropdown-basic"
+                  style={{ border: "none", boxShadow: "none" }}
+                >
+                  {i18n.language === "en" ? (
+                    <img
+                      src={process.env.PUBLIC_URL + "/images/usa.png"}
+                      alt="USA"
+                    />
+                  ) : (
+                    <img
+                      src={process.env.PUBLIC_URL + "/images/vietnam.png"}
+                      alt="VN"
+                    />
+                  )}
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => switchLanguage("en")}>
+                    English
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => switchLanguage("vi")}>
+                    Tiếng Việt
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </li>
           </ul>
         </div>
       </div>

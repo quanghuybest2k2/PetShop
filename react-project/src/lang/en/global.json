@@ -1,0 +1,21 @@
+{
+  "header": {
+    "petshop":"Pet Shop",
+    "home": "Home",
+    "about": "About",
+    "album": "Album",
+    "collection": "Collection",
+    "contact": "Contact",
+    "cart": "Cart",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "home": {
+    "start": "Start"
+  },
+  "about": {
+    "about": "About",
+    "intro": "Introducing the pet store"
+  }
+}

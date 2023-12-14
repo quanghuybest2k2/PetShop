@@ -1,0 +1,21 @@
+{
+  "header": {
+    "petshop":"Cửu hàng thú cưng",
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "album": "Album",
+    "collection": "Bộ sưu tập",
+    "contact": "Liên hệ",
+    "cart": "Giỏ hàng",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "logout": "Đăng xuất"
+  },
+  "home": {
+    "start": "Bắt đầu ngay"
+  },
+  "about": {
+    "about": "Giới thiệu",
+    "intro": "Giới thiệu về cửa hàng thú cưng"
+  }
+}

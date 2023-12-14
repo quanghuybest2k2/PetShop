@@ -16,7 +16,7 @@ function Profile() {
                   }}
                 >
                   <img
-                    src={process.env.PUBLIC_URL + "/images/quanghuybest2k2.jpg"}
+                    src={process.env.PUBLIC_URL + "/images/Logo_Huy.png"}
                     alt="Avatar"
                     className="img-fluid my-5 img-thumbnail"
                     style={{ width: "200px" }}
