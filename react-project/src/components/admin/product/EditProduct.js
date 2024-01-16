@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import config from "../../../config";
+import LoadingSpinner from "../../LoadingSpinner";
 
 function EditProduct(props) {
   const history = useHistory();
@@ -93,7 +94,7 @@ function EditProduct(props) {
   };
 
   if (loading) {
-    return <h4>Xin vui lòng chờ...</h4>;
+    return <LoadingSpinner />;
   }
 
   return (

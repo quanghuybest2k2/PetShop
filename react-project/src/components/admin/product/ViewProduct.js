@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import config from "../../../config";
 import numeral from "numeral"; // format vnd
+import LoadingSpinner from "../../LoadingSpinner";
 
 function ViewProduct() {
   const [loading, setLoading] = useState(true);
@@ -46,7 +47,7 @@ function ViewProduct() {
   var display_Productdata = "";
   var stt = 1;
   if (loading) {
-    return <h4>Xin vui lòng chờ...</h4>;
+    return <LoadingSpinner />;
   } else {
     display_Productdata = viewProduct.map((item) => {
       return (

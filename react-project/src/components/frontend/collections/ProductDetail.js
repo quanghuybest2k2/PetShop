@@ -9,6 +9,7 @@ import { FacebookIcon, TwitterIcon } from "react-share";
 import { format } from "date-fns";
 import config from "../../../config";
 import numeral from "numeral"; // format vnd
+import LoadingSpinner from "../../LoadingSpinner";
 
 function ProductDetail(props) {
   const history = useHistory();
@@ -118,7 +119,7 @@ function ProductDetail(props) {
   };
 
   if (loading) {
-    return <h4>Xin vui lòng chờ...</h4>;
+    return <LoadingSpinner />;
   } else {
     var avail_stock = "";
     if (product.qty > 0) {

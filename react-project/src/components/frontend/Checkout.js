@@ -4,6 +4,7 @@ import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 import Stripe from "stripe";
 import numeral from "numeral"; // format vnd
+import LoadingSpinner from "../LoadingSpinner";
 
 function Checkout() {
   const history = useHistory();
@@ -126,7 +127,7 @@ function Checkout() {
   };
 
   if (loading) {
-    return <h4>Xin vui lòng chờ...</h4>;
+    return <LoadingSpinner />;
   }
 
   var checkout_HTML = "";

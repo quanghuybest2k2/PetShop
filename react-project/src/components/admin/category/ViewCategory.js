@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
 import config from "../../../config";
+import LoadingSpinner from "../../LoadingSpinner";
 
 function ViewCategory() {
   const [loading, setLoading] = useState(true);
@@ -45,7 +46,7 @@ function ViewCategory() {
   var viewcategory_HTMLTABLE = "";
   var stt = 1;
   if (loading) {
-    return <h4>Xin vui lòng chờ...</h4>;
+    return <LoadingSpinner />;
   } else {
     viewcategory_HTMLTABLE = categorylist.map((item) => {
       return (

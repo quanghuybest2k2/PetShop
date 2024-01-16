@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import swal from "sweetalert";
 import config from "../../../config";
+import LoadingSpinner from "../../LoadingSpinner";
 
 function ViewComment() {
   const [loading, setLoading] = useState(true);
@@ -43,7 +44,7 @@ function ViewComment() {
 
   var display_Commentdata = "";
   if (loading) {
-    return <h4>Xin vui lòng chờ...</h4>;
+    return <LoadingSpinner />;
   } else {
     var stt = 1;
     display_Commentdata = viewComment.map((item) => {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import LoadingSpinner from "../LoadingSpinner";
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -61,7 +62,7 @@ function Dashboard() {
 
   var viewDashboard_HTML = "";
   if (loading) {
-    return <h4>Xin vui lòng chờ...</h4>;
+    return <LoadingSpinner />;
   } else {
     viewDashboard_HTML = cards.map((card, index) => (
       <div

@@ -4,6 +4,7 @@ import swal from "sweetalert";
 import { Link, useHistory } from "react-router-dom";
 import config from "../../../config";
 import { BiSkipPrevious, BiSkipNext } from "react-icons/bi";
+import LoadingSpinner from "../../LoadingSpinner";
 
 function ViewProduct(props) {
   const history = useHistory();
@@ -45,7 +46,7 @@ function ViewProduct(props) {
   }
 
   if (loading) {
-    return <h4>Xin vui lòng chờ...</h4>;
+    return <LoadingSpinner />;
   } else {
     var showProductList = "";
     if (product.length) {

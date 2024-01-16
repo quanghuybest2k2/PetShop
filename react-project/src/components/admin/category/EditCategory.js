@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
 import config from "../../../config";
+import LoadingSpinner from "../../LoadingSpinner";
 
 function EditCategory(props) {
   const history = useHistory();
@@ -50,7 +51,7 @@ function EditCategory(props) {
   };
 
   if (loading) {
-    return <h4>Xin vui lòng chờ...</h4>;
+    return <LoadingSpinner />;
   }
 
   return (

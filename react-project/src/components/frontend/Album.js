@@ -6,6 +6,7 @@ import "./css/album.css";
 import axios from "axios";
 import config from "../../config";
 import swal from "sweetalert";
+import LoadingSpinner from "../LoadingSpinner";
 
 const Gallery = () => {
   const [categorylist, setCategorylist] = useState([]);
@@ -89,7 +90,7 @@ const Gallery = () => {
     ));
 
   if (loading) {
-    return <h4>Xin vui lòng chờ...</h4>;
+    return <LoadingSpinner />;
   } else {
     if (petList.length > 0) {
       return (

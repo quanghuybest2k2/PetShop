@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import config from "../../../config";
+import LoadingSpinner from "../../LoadingSpinner";
 
 function ViewCategory() {
   const [loading, setLoading] = useState(true);
@@ -26,7 +27,7 @@ function ViewCategory() {
   }, []);
 
   if (loading) {
-    return <h4>Xin vui lòng chờ...</h4>;
+    return <LoadingSpinner />;
   } else {
     var showCategoryList = "";
     showCategoryList = category.map((item, idx) => {
