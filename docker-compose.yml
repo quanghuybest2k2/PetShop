@@ -1,0 +1,55 @@
+version: "3.8"
+services:
+  server:
+    container_name: backend
+    build: ./Laravel-api
+    ports:
+      - "80:80"
+    volumes:
+      - ./Laravel-api:/var/www/html
+      - ./Laravel-api/apache.conf:/etc/apache2/sites-available/000-default.conf
+    links:
+      - db
+    networks:
+      - default
+
+  client:
+    container_name: frontend
+    build: ./react-project
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./react-project:/app
+    depends_on:
+      - server
+
+  db:
+    container_name: mysql
+    image: mysql:8.3.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: petshop
+      MYSQL_USER: huy
+      MYSQL_PASSWORD: huy
+      MYSQL_ROOT_PASSWORD: huy
+    volumes:
+      - ./Resource/db:/docker-entrypoint-initdb.d
+      - persistent:/var/lib/mysql
+    networks:
+      - default
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db:db
+    ports:
+      - "82:80"
+    environment:
+      MYSQL_USER: huy
+      MYSQL_PASSWORD: huy
+      MYSQL_ROOT_PASSWORD: huy
+
+volumes:
+  persistent:

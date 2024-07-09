@@ -44,17 +44,13 @@ Xây dựng ứng dụng web quản lý cửa hàng thú cưng
 
 ### Cài đặt react project
 
-#### cài đặt yarn bằng lệnh:
+### Gõ các lệnh:
 
-### `npm install --global yarn`
-
-### Sau đó gõ các lệnh:
-
-### `yarn install`
+### `npm install`
 
 #### Để chạy dự án
 
-### `yarn start`
+### `npm start`
 
 ### Docs API
 

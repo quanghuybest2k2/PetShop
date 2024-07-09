@@ -189,6 +189,16 @@
             }
         }
     },
+    "tags": [
+        {
+            "name": "Albums",
+            "description": "Albums"
+        },
+        {
+            "name": "Authentication",
+            "description": "Authentication"
+        }
+    ],
     "components": {
         "securitySchemes": {
             "bearer": {
