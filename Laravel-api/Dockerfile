@@ -24,15 +24,9 @@ COPY apache.conf /etc/apache2/sites-available/000-default.conf
 RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
 RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
-# Install Node.js from NodeSource PPA
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-
-VOLUME [ "/var/www/html" ]
 WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html
-
-EXPOSE 80
 
 ENTRYPOINT [ "/usr/sbin/apache2" ]
 CMD ["-D", "FOREGROUND"]
