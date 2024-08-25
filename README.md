@@ -12,6 +12,10 @@ Xây dựng ứng dụng web quản lý cửa hàng thú cưng
 
 ## Hướng dẫn cài đặt
 
+## Chạy với Docker
+
+[Xem tại đây](./run-with-docker.md)
+
 ### Yêu cầu môi trường
 
 [composer](https://getcomposer.org/download/)

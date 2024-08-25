@@ -28,5 +28,17 @@ WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html
 
+COPY . /var/www/html/
+
+RUN cp /var/www/html/.env.docker.example /var/www/html/.env
+
+RUN composer install
+
+RUN php artisan key:generate
+
+RUN chown -R www-data:www-data /var/www/html/storage
+
+RUN chmod -R 775 /var/www/html/storage
+
 ENTRYPOINT [ "/usr/sbin/apache2" ]
 CMD ["-D", "FOREGROUND"]

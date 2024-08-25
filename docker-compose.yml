@@ -5,9 +5,6 @@ services:
     build: ./Laravel-api
     ports:
       - "80:80"
-    volumes:
-      - ./Laravel-api:/var/www/html
-      - ./Laravel-api/apache.conf:/etc/apache2/sites-available/000-default.conf
     links:
       - db
     networks:
@@ -18,9 +15,6 @@ services:
     build: ./react-project
     ports:
       - "3000:3000"
-    volumes:
-      - ./react-project:/app
-      - /app/node_modules
     depends_on:
       - server
 
