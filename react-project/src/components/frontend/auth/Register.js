@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import Pet_logo from "./img/gpet.jpg";
 
 function Register() {
+  document.title = "Đăng ký";
   const history = useHistory();
   const [registerInput, setRegister] = useState({
     name: "",

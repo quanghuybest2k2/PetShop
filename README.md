@@ -1,61 +1,84 @@
 # PetShop
 
-Xây dựng ứng dụng web quản lý cửa hàng thú cưng
+## Giới thiệu
+
+PetShop là một ứng dụng web giúp quản lý cửa hàng thú cưng, hỗ trợ người dùng quản lý sản phẩm, đơn hàng, khách hàng và nhiều tính năng khác.
 
 ## Bài tập nhóm môn Phát triển ứng dụng web nâng cao
 
-## API dùng Postman test
+## API dùng Postman để test
 
-[Video Demo](https://www.youtube.com/watch?v=eXgQm2_3Ct4&t=216s&ab_channel=%C4%90o%C3%A0nQuangHuy)
+- [Video Demo](https://www.youtube.com/watch?v=eXgQm2_3Ct4&t=216s&ab_channel=%C4%90o%C3%A0nQuangHuy)
+- [Tham khảo PetShop Đà Lạt](https://www.petshopdalat.vn/)
 
-[Link tham khảo](https://www.petshopdalat.vn/)
+---
 
 ## Hướng dẫn cài đặt
 
-## Chạy với Docker
+### 1. Yêu cầu môi trường
 
-[Xem tại đây](./run-with-docker.md)
+Trước khi cài đặt và chạy dự án, hãy đảm bảo rằng hệ thống của bạn đã được cài đặt các công cụ sau:
 
-### Yêu cầu môi trường
+- [Composer](https://getcomposer.org/download/)
+- [NodeJS](https://nodejs.org/en)
+- [XAMPP 8.2.4 / PHP 8.2.4](https://www.apachefriends.org/download.html)
 
-[composer](https://getcomposer.org/download/)
+### 2. Cài đặt Database
 
-[NodeJS](https://nodejs.org/en)
+1. Mở **XAMPP** và nhấn `Start` Apache và `Start` MySQL.
+2. Truy cập `http://localhost/phpmyadmin/`.
+3. Tạo một database mới với tên **petshop**.
 
-[Xampp 8.2.4 / PHP 8.2.4](https://www.apachefriends.org/download.html)
+### 3. Cài đặt Laravel API
 
-### Cài đặt Database
+Thực hiện các bước sau để cài đặt API backend sử dụng Laravel:
 
-#### Mở Xampp nhấn `start` Apache và nhấn `start` MYSQL
+```sh
+cd Laravel-api
+cp .env.example .env
+```
 
-#### truy cập url `http://localhost/phpmyadmin/` và tạo database mới đặt tên là `petshop`
+- Mở file `.env` vừa tạo và chỉnh sửa dòng sau:
+  ```env
+  DB_DATABASE=petshop
+  ```
 
-### Cài đặt laravel api
+Tiếp theo, chạy các lệnh sau để cài đặt:
 
-#### Gõ các lệnh:
+```sh
+composer install  # Nếu gặp lỗi, có thể thử `composer update`
+php artisan key:generate
+php artisan migrate:fresh --seed
+php artisan serve
+```
 
-### `cp .env.example .env`
+Lệnh cuối cùng sẽ khởi động server Laravel.
 
-### vào `.env` vừa tạo sửa `DB_DATABASE=petshop`
+### 4. Cài đặt React Frontend
 
-### Gõ lệnh `composer install` nếu không được thì gõ `composer update`
+Tiếp theo, thiết lập React project:
 
-### Gõ lệnh `php artisan key:generate`
+```sh
+cd react-project
+cp .env.example .env
+npm install
+npm start
+```
 
-### Gõ lệnh `php artisan migrate:fresh --seed`
+Lệnh `npm start` sẽ khởi chạy ứng dụng React trên `http://localhost:3000`.
 
-### Để chạy dự án `php artisan serve`
+---
 
-### Cài đặt react project
+## Chạy dự án với Docker
 
-### Gõ các lệnh:
+Bạn cũng có thể chạy dự án bằng Docker. Xem hướng dẫn chi tiết tại [đây](./run-with-docker.md).
 
-### `npm install`
+---
 
-#### Để chạy dự án
+## Tài liệu API
 
-### `npm start`
+- Truy cập tài liệu API tại: `http://127.0.0.1:8000/api/docs`
 
-### Docs API
+## Liên hệ
 
-`http://127.0.0.1:8000/api/docs`
+Nếu có bất kỳ vấn đề nào khi cài đặt hoặc sử dụng ứng dụng, vui lòng liên hệ nhóm phát triển để được hỗ trợ.

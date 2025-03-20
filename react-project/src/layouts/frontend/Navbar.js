@@ -38,7 +38,7 @@ function Navbar() {
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="/register">
-            {t("header.login")}
+            {t("header.register")}
           </Link>
         </li>
       </ul>

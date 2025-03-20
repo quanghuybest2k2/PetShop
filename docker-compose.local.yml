@@ -4,9 +4,12 @@ services:
     container_name: backend
     build:
       context: ./Laravel-api
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.local
     ports:
       - "80:80"
+    volumes:
+      - ./Laravel-api:/var/www/html
+      - ./Laravel-api/apache.conf:/etc/apache2/sites-available/000-default.conf
     links:
       - db
     networks:
@@ -16,9 +19,11 @@ services:
     container_name: frontend
     build:
       context: ./react-project
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.local
     ports:
       - "3000:3000"
+    volumes:
+      - ./react-project:/app
     depends_on:
       - server
 
